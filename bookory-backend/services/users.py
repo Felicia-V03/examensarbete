@@ -1,7 +1,7 @@
-from utils.bcrypt import hashPassword, verifyPassword
+from utils.bcrypt import hash_Password
 from client import table
 
-def createUser(user):
+def create_User(user):
   print("Creating user...", user)
 
   try:
@@ -13,7 +13,7 @@ def createUser(user):
           "M": {
             "username": {"S": user.username},
             "email": {"S": user.email},
-            "password": {"S": hashPassword(user.password)},
+            "password": {"S": hash_Password(user.password)},
           }
         }
       }
@@ -24,7 +24,7 @@ def createUser(user):
     print("Error creating user:", error)
     return {"message": "Error creating user"}
   
-def getUser(username):
+def get_User(username):
   print("Getting user...", username)
 
   try:

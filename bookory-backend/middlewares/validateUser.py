@@ -1,6 +1,6 @@
 from models.userSchema import validator
 
-def validateLogin(func):
+def validate_User(func):
   def wrapper(handler):
     if "body" not in handler or not handler["body"]:
       return {"status": "error", "message": "Missing request body"}, 400

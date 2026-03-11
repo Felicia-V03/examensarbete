@@ -1,6 +1,6 @@
 from cerberus import Validator
 
-userSchema = {
+user_Schema = {
   "username": {
     "type": "string",
     "minlength": 6,
@@ -20,4 +20,4 @@ userSchema = {
   }
 }
 
-validator = Validator(userSchema)
+validator = Validator(user_Schema)

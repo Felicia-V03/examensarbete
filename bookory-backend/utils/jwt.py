@@ -3,13 +3,13 @@ from datetime import datetime, timedelta
 
 SECRET = "bookory_secret_key"
 
-def generateToken(user):
+def generate_Token(user):
   payload = {
     "user_id": user.id
   }
   return jwt.encode(payload, SECRET, { "expires_in": timedelta(hours=2) })
 
-def verifyToken(token):
+def verify_Token(token):
   try:
     decoded = jwt.decode(token, SECRET)
     return decoded

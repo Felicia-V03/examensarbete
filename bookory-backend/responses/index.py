@@ -1,6 +1,6 @@
 import json
 
-def sendResponse (code, data):
+def send_Response (code, data):
   return {
     "statusCode": code,
     "body": json.dumps(data)

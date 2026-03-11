@@ -1,6 +1,6 @@
-from utils.jwt import verifyToken
+from utils.jwt import verify_Token
 
-def authenticateUser(func):
+def authenticate_User(func):
   def wrapper(event, *args, **kwargs):
     headers = event.get("headers", {})
 
@@ -14,7 +14,7 @@ def authenticateUser(func):
     
     token = autHeader.split(" ")[1]
 
-    user = verifyToken(token)
+    user = verify_Token(token)
 
     if not user:
       return {
