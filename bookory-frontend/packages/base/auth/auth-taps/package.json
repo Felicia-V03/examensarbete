@@ -1,0 +1,5 @@
+{
+    "name": "@bookory-frontend/auth-taps",
+    "main": "index.ts",
+    "types": "./ui/index.tsx"
+}
