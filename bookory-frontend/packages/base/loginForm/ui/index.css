@@ -1,0 +1,28 @@
+.auth-textfield {
+  display: block;
+  margin: 0 0 22px;
+}
+
+.auth-textfield__label {
+  display: block;
+  font-size: 22px;
+  color: #ef9445;
+  margin: 0 0 8px;
+}
+
+.auth-textfield__input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 18px;
+  color: #3b2f2a;
+  padding: 2px 0 10px;
+}
+
+.auth-textfield__line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: rgba(239, 148, 69, 0.7);
+}

@@ -14,13 +14,17 @@ export default defineConfig({
       '@bookory-frontend/registerpage': resolve(__dirname, 'packages/pages/registerpage/ui/index.tsx'),
       '@bookory-frontend/searchpage': resolve(__dirname, 'packages/pages/searchpage/ui/index.tsx'),
 
-      // Core hooks
-
-
+      
       // Core
       '@bookory-frontend/user': resolve(__dirname, 'packages/core/interfaces/user/index.ts'),
+      '@bookory-frontend/login': resolve(__dirname, 'packages/core/interfaces/login/index.ts'),
 
       // Base Components
+      '@bookory-frontend/button': resolve(__dirname, 'packages/core/interfaces/button/index.ts'),
+      '@bookory-frontend/loading': resolve(__dirname, 'packages/core/interfaces/loading/index.ts'),
+      '@bookory-frontend/login-form': resolve(__dirname, 'packages/core/interfaces/login-form/index.ts'),
+      '@bookory-frontend/auth-card': resolve(__dirname, 'packages/core/interfaces/auth-card/index.ts'),
+      '@bookory-frontend/auth-taps': resolve(__dirname, 'packages/core/interfaces/auth-taps/index.ts'),
     }
   }
 })
