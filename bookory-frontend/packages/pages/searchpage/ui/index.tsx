@@ -3,7 +3,7 @@ import axios from 'axios';
 import { SearchInput } from '@bookory-frontend/search-input';
 import { BookResults } from '@bookory-frontend/search-results';
 import type { Book, OpenLibraryResponse } from '@bookory-frontend/book';
-import './searchPage.css';
+import './index.css';
 
 export function SearchPage() {
   const [books, setBooks] = useState<Book[]>([]);
