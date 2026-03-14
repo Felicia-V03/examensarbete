@@ -23,7 +23,23 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@bookory-frontend/homepage": ["packages/pages/homepage/ui/index.tsx"],
+      "@bookory-frontend/startpage": ["packages/pages/startpage/ui/index.tsx"],
+      "@bookory-frontend/loginpage": ["packages/pages/loginpage/ui/index.tsx"],
+      "@bookory-frontend/registerpage": ["packages/pages/registerpage/ui/index.tsx"],
+      "@bookory-frontend/searchpage": ["packages/pages/searchpage/ui/index.tsx"],
+      "@bookory-frontend/user": ["packages/core/interfaces/user/index.ts"],
+      "@bookory-frontend/button": ["packages/core/interfaces/button/index.ts"],
+      "@bookory-frontend/base-button": ["packages/base/button/ui/index.tsx"],
+      "@bookory-frontend/auth-context": ["packages/core/context/auth/index.tsx"],
+      "@bookory-frontend/protected-route": ["packages/base/protected-route/ui/index.tsx"],
+      "@bookory-frontend/auth-card": ["packages/base/auth/auth-card/ui/index.tsx"],
+      "@bookory-frontend/auth-taps": ["packages/base/auth/auth-taps/ui/index.tsx"],
+      "@bookory-frontend/login-form": ["packages/base/loginForm/ui/index.tsx"]
+    }
   },
-  "include": ["src", "../packages"]
+  "include": ["src", "packages"]
 }

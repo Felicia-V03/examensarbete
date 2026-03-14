@@ -18,13 +18,15 @@ export default defineConfig({
       // Core
       '@bookory-frontend/user': resolve(__dirname, 'packages/core/interfaces/user/index.ts'),
       '@bookory-frontend/login': resolve(__dirname, 'packages/core/interfaces/login/index.ts'),
+      '@bookory-frontend/auth-context': resolve(__dirname, 'packages/core/context/auth/index.tsx'),
 
       // Base Components
+      '@bookory-frontend/base-button': resolve(__dirname, 'packages/base/button/ui/index.tsx'),
+      '@bookory-frontend/protected-route': resolve(__dirname, 'packages/base/protected-route/ui/index.tsx'),
       '@bookory-frontend/button': resolve(__dirname, 'packages/core/interfaces/button/index.ts'),
-      '@bookory-frontend/loading': resolve(__dirname, 'packages/core/interfaces/loading/index.ts'),
-      '@bookory-frontend/login-form': resolve(__dirname, 'packages/core/interfaces/login-form/index.ts'),
-      '@bookory-frontend/auth-card': resolve(__dirname, 'packages/core/interfaces/auth-card/index.ts'),
-      '@bookory-frontend/auth-taps': resolve(__dirname, 'packages/core/interfaces/auth-taps/index.ts'),
+      '@bookory-frontend/auth-card': resolve(__dirname, 'packages/base/auth/auth-card/ui/index.tsx'),
+      '@bookory-frontend/auth-taps': resolve(__dirname, 'packages/base/auth/auth-taps/ui/index.tsx'),
+      '@bookory-frontend/login-form': resolve(__dirname, 'packages/base/loginForm/ui/index.tsx'),
     }
   }
 })
