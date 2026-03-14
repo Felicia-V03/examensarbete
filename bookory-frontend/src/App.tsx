@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from '@bookory-frontend/auth-context';
 import { ProtectedRoute } from '@bookory-frontend/protected-route';
 import { StartPage } from '@bookory-frontend/startpage';
 import { LoginPage } from '@bookory-frontend/loginpage';
@@ -9,21 +8,21 @@ import { SearchPage } from '@bookory-frontend/searchpage';
 
 function App() {
   return (
-    <AuthProvider>
-      <Routes>
-        {/* Publika routes */}
-        <Route path="/" element={<StartPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+    <Routes>
+      {/* Publika routes */}
+      <Route path="/" element={<StartPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/search" element={<SearchPage />} />
 
-        {/* Skyddade routes */}
-        <Route element={<ProtectedRoute />}>
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/search" element={<SearchPage />} />
-        </Route>
-      </Routes>
-    </AuthProvider>
+      {/* Skyddade routes */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/home" element={<HomePage />} />
+        
+      </Route>
+    </Routes>
   );
 }
 
 export default App
+

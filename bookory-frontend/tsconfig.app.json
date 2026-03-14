@@ -34,11 +34,16 @@
       "@bookory-frontend/user": ["packages/core/interfaces/user/index.ts"],
       "@bookory-frontend/button": ["packages/core/interfaces/button/index.ts"],
       "@bookory-frontend/base-button": ["packages/base/button/ui/index.tsx"],
-      "@bookory-frontend/auth-context": ["packages/core/context/auth/index.tsx"],
+      "@bookory-frontend/auth-context": ["packages/core/store/useauth-store/data/index.tsx"],
+      "@bookory-frontend/auth-store": ["packages/core/store/useauth-store/data/index.tsx"],
       "@bookory-frontend/protected-route": ["packages/base/protected-route/ui/index.tsx"],
       "@bookory-frontend/auth-card": ["packages/base/auth/auth-card/ui/index.tsx"],
       "@bookory-frontend/auth-taps": ["packages/base/auth/auth-taps/ui/index.tsx"],
-      "@bookory-frontend/login-form": ["packages/base/loginForm/ui/index.tsx"]
+      "@bookory-frontend/login-form": ["packages/base/loginForm/ui/index.tsx"],
+      "@bookory-frontend/book": ["packages/core/interfaces/book/index.ts"],
+      "@bookory-frontend/search-results": ["packages/base/search/search-results/ui/index.tsx"],
+      "@bookory-frontend/search-input": ["packages/base/search/search-input/ui/index.tsx"],
+      "@bookory-frontend/useauth-token": ["packages/core/hooks/useauth-token/index.ts"]
     }
   },
   "include": ["src", "packages"]
