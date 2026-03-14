@@ -1,11 +1,11 @@
-import './authTextField.css';
+import './index.css';
 
 interface AuthTextFieldProps {
   label: string;
   type?: React.HTMLInputTypeAttribute;
   value: string;
   onChange: (value: string) => void;
-  autoComplete?: string;
+  autoComplete?: React.HTMLInputAutoCompleteAttribute;
 }
 
 export const AuthTextField = ({
