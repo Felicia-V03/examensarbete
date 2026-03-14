@@ -23,7 +23,7 @@ export const AuthTextField = ({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        autoComplete={autoComplete}
+        autoComplete={autoComplete ?? 'off'}
       />
       <span className="auth-textfield__line" />
     </label>

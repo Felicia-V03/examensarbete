@@ -1,8 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '@bookory-frontend/auth-context';
+import { useAuthStore } from '@bookory-frontend/auth-store';
 
 export const ProtectedRoute = () => {
-    const { user } = useAuth();
+    const user = useAuthStore((state) => state.user);
     if (!user) return <Navigate to="/" replace />;
     return <Outlet />;
 };
