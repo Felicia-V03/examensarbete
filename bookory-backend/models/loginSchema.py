@@ -1,10 +1,9 @@
 from cerberus import Validator
 
 login_Schema = {
-  "username": {
+  "email": {
     "type": "string",
-    "minlength": 6,
-    "regex": "^[a-zA-Z0-9_]+$",
+    "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
     "required": True
   },
   "password": {

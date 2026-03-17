@@ -1,33 +1,35 @@
-# from responses.index import send_Response
-# from middlewares.errorHandler import error_Handler
-# from middlewares.validateLogin import validate_Login
-# from services.users import get_User
-# from utils.bcrypt import verify_Password
-# from utils.jwt import generate_Token
+from responses.index import send_Response
+from middlewares.errorHandler import error_Handler
+from middlewares.validateLogin import validate_Login
+from services.users import get_User
+from utils.jwt import generate_Token
 
-# @error_Handler
-# @validate_Login
+@error_Handler
+@validate_Login
 
-# def handler(event):
-#   body = event["body"]
+def handler(event, context):
+  body = event["validated_body"]
 
-#   response = get_User(body["email"])
+  user = get_User(body["email"])
 
-#   if response:
-#     if verify_Password(body["password"], response["attributes"]["password"]["S"].encode('utf-8')):
-#       token = generate_Token(response["attributes"]["email"]["S"])
-#       print("Login successful", body["email"])
-#       return send_Response(200, {
-#         "message": "Login successful",
-#         "token": token
-#       })
-#     else:
-#       print("Invalid email or password", body["email"])
-#       return send_Response(401, {
-#         "message": "Invalid email or password"
-#       })
-#   else:
-#     print("User not found", body["email"])
-#     return send_Response(404, {
-#       "message": "User not found"
-#     })
+  if user:
+    db_password = user["attributes"]["password"]
+    db_email = user["attributes"]["email"]
+
+    if body["password"] == db_password:
+      token = generate_Token({
+        "email": db_email
+      })
+
+      return send_Response(200, {
+        "message": "Login successful",
+        "token": token
+      })
+
+    return send_Response(401, {
+      "message": "Invalid email or password"
+    })
+
+  return send_Response(404, {
+    "message": "User not found"
+  })

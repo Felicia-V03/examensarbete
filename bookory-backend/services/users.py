@@ -1,7 +1,7 @@
-# from utils.bcrypt import hash_Password
 from services.client import table
 from utils.uuid import generate_uuid
 from datetime import datetime
+# from utils.bcrypt import hash_password
 
 def create_User(user):
   print("Creating user...", user)
@@ -11,42 +11,45 @@ def create_User(user):
 
   try:
     table.put_item(
-      Item = {
-        "PK" : {"S": f"USER#{user_id}"},
-        "SK" : {"S": "PROFILE"},
-        "attributes" : {
-          "M": {
-            "userid": {"S": user_id},
-            "username": {"S": user.username},
-            "email": {"S": user.email},
-            "password": {"S": user.password},
-            "createdat": {"S": created_at}
-          }
+      Item={
+        "PK": f"USER#{user_id}",
+        "SK": "PROFILE",
+        "attributes": {
+          "userid": user_id,
+          "username": user["username"],
+          "email": user["email"],
+          "password": user["password"],
+          "createdat": created_at
         }
+        
       }
     )
+
     return {
       "message": "User created successfully",
       "userid": user_id,
-      "createdat": created_at
     }
-  
+
   except Exception as error:
     print("Error creating user:", error)
-    return {"message": "Error creating user"}
-  
-def get_User(user_id):
-  print("Getting user...", user_id)
+    return False
 
+def get_User(email):
   try:
-    response = table.get_item(
-      Key = {
-        "PK": {"S": f"USER#{user_id}"},
-        "SK": {"S": "PROFILE"}
-      }
-    )
-    return response.get("message", "user found")
-  
+    response = table.scan()
+    items = response.get("Items", [])
+
+    for item in items:
+      if "attributes" in item:
+        attributes = item.get("attributes", {})
+        if isinstance(attributes, dict):
+          db_email = attributes.get("email")
+
+          if db_email == email:
+            return item
+
+    return None
+
   except Exception as error:
     print("Error getting user:", error)
-    return {"message": "Error getting user"}
+    return None

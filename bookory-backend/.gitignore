@@ -16,6 +16,9 @@ var/
 .installed.cfg
 *.egg
 venv/
+cerberus/
+bcrypt/
+jwt/
 
 
 
