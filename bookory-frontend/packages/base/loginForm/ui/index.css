@@ -26,3 +26,16 @@
   height: 2px;
   background: rgba(239, 148, 69, 0.7);
 }
+
+.auth-textfield__input-wrapper {
+  position: relative;
+}
+
+.auth-textfield__input-wrapper i {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ef9445;
+  cursor: pointer;
+}
