@@ -1,1 +1,5 @@
-﻿{"name":"@bookory-frontend/user","main":"index.ts"}
+{
+    "name": "@bookory-frontend/user",
+    "main": "index.ts",
+    "types": "./ui/index.tsx"
+}

@@ -1,10 +1,9 @@
 import './index.css';
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Logo from '../../../../src/assets/logo.png';
-//import { AuthButton } from '../../components/Button/button';
-
+import { AuthButton } from '@bookory-frontend/base-button'
 export const StartPage = () => {
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     return (
         <section className="page-body landing-page">
@@ -12,8 +11,8 @@ export const StartPage = () => {
             <img src={Logo} alt="Bookory Image" className="logo-image" />
         </figure>
         <aside className="btn_container">
-        {/* <AuthButton type="login" user={null} onClick={() => navigate('/login')} label="Log in" />
-        <AuthButton type="register" user={null} onClick={() => navigate('/register')} label="Register" />  */}
+        <AuthButton type="login" user={null} onClick={() => navigate('/login')} label="Log in" />
+        <AuthButton type="register" user={null} onClick={() => navigate('/register')} label="Register" /> 
         </aside>      
         </section>
     )
