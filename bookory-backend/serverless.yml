@@ -1,19 +1,79 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: leucippus03
-# "service" is the name of this project. This will also be added to your AWS resource names.
 service: bookory-backend
 
 provider:
   name: aws
   runtime: python3.12
-  # Uncomment to easily set up a custom domain. Read the docs for more details:
-  # https://www.serverless.com/framework/docs/providers/aws/guide/domains
-  # domain: api.example.com
+  region: eu-north-1
+  httpApi:
+    cors: true
+  iam:
+    role: arn:aws:iam::747901701476:role/BasicLambdaRole
+
+custom:
+  pythonRequirements:
+    dockerizePip: false
 
 functions:
-  hello:
-    handler: handler.hello
+  ##Auth
+  Login:
+    handler: functions/auth/LoginUser/index.handler
     events:
       - httpApi:
-          path: /
+          path: /api/auth/login
+          method: post
+  Register:
+    handler: functions/auth/RegisterUser/index.handler
+    events:
+      - httpApi:
+          path: /api/auth/register
+          method: post
+  ##Books
+  PostBook:
+    handler: functions/books/PostBook/index.handler
+    events:
+      - httpApi:
+          path: /api/book
+          method: post
+  GetBooks:
+    handler: functions/books/GetBooks/index.handler
+    events:
+      - httpApi:
+          path: /api/books
           method: get
+  GetBookById:
+    handler: functions/books/GetBookById/index.handler
+    events:
+      - httpApi:
+          path: /api/book/{id}
+          method: get
+  GetBookByStatus:
+    handler: functions/books/GetBookByStatus/index.handler
+    events:
+      - httpApi:
+          path: /api/book/status/{status}
+          method: get
+  PutBookById:
+    handler: functions/books/PutBookById/index.handler
+    events:
+      - httpApi:
+          path: /api/book/{id}
+          method: put
+
+resources:
+  Resources:
+    BooksTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: bookory-table
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+          - AttributeName: SK
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE

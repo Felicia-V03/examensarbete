@@ -15,6 +15,12 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+venv/
+cerberus/
+bcrypt/
+jwt/
+
+
 
 # Serverless directories
 .serverless
