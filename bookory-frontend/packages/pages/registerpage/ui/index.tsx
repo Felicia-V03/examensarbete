@@ -42,13 +42,19 @@ export const RegisterPage = () => {
         <form className="auth-form" onSubmit={onSubmit}>
           <AuthTextField label="Name" value={name} onChange={setName} autoComplete="name" />
           <AuthTextField label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" />
-          <AuthTextField label="Password" type="password" value={password} onChange={setPassword} autoComplete="new-password" />
+          <AuthTextField 
+            label="Password" 
+            type="password" 
+            value={password} 
+            onChange={setPassword} 
+            showToggle
+            autoComplete="new-password" />
           <AuthTextField
-            label="Confirm Password"
-            type="password"
+            label="Password"
             value={confirmPassword}
             onChange={setConfirmPassword}
-            autoComplete="new-password"
+            showToggle  
+            autoComplete="current-password"
           />
 
           <AuthActionButton label="Sign up" disabled={!canSubmit} />

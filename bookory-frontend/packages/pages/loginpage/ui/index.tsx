@@ -43,6 +43,7 @@ export const LoginPage = () => {
                         value={password}
                         onChange={setPassword}
                         autoComplete="current-password"
+                        showToggle
                     />
 
                     <AuthActionButton label="Log in" disabled={!canSubmit} />
