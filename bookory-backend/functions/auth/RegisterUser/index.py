@@ -1,4 +1,5 @@
-from responses import send_Response
+import json
+from responses.index import send_Response
 from middlewares.errorHandler import error_Handler
 from middlewares.validateUser import validate_User
 from services.users import create_User
@@ -6,8 +7,13 @@ from services.users import create_User
 @error_Handler
 @validate_User
 
-def handler(event):
+def handler(event, context):
   body = event["body"]
+
+  if isinstance(body, str):
+    body = json.loads(body)
+
+  print("Creating user...", body["username"])
 
   response = create_User(body)
 

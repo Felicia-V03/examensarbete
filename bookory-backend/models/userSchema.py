@@ -10,13 +10,13 @@ user_Schema = {
   "password": {
     "type": "string",
     "minlength": 8,
-    "regex": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$",
+    "regex": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z\\d]).+$",
     "required": True
   },
   "email": {
     "type": "string",
     "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
-    "required": True,
+    "required": True
   }
 }
 

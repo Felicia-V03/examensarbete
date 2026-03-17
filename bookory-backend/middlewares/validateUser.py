@@ -1,14 +1,22 @@
-from models.userSchema import validator
+from models.userSchema import user_Schema, validator
+import json
 
 def validate_User(func):
-  def wrapper(handler):
-    if "body" not in handler or not handler["body"]:
-      return {"status": "error", "message": "Missing request body"}, 400
+  def wrapper(event, context):
+    if "body" not in event or not event["body"]:
+      return {"statusCode": 400, "body": json.dumps({"status": "error", "message": "Missing request body"})}
     
-    data = handler["body"]
+    data = event["body"]
+    
+    # Parse JSON string if needed
+    if isinstance(data, str):
+      try:
+        data = json.loads(data)
+      except json.JSONDecodeError:
+        return {"statusCode": 400, "body": json.dumps({"status": "error", "message": "Invalid JSON"})}
 
     if not validator.validate(data):
-      return {"status": "error", "message": "Invalid request body", "errors": validator.errors}, 400
+      return {"statusCode": 400, "body": json.dumps({"status": "error", "message": "Invalid request body", "errors": validator.errors})}
     
-    return func(handler)
+    return func(event, context)
   return wrapper
