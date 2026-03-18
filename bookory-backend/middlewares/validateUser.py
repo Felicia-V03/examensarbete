@@ -1,7 +1,7 @@
 from models.userSchema import user_Schema, validator
 import json
 
-def validate_User(func):
+def validate_user(func):
   def wrapper(event, context):
     if "body" not in event or not event["body"]:
       return {"statusCode": 400, "body": json.dumps({"status": "error", "message": "Missing request body"})}

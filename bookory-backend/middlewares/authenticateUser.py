@@ -1,20 +1,20 @@
-from utils.jwt import verify_Token
+from utils.jwt import verify_token
 
-def authenticate_User(func):
+def authenticate_user(func):
   def wrapper(event, *args, **kwargs):
     headers = event.get("headers", {})
 
     autHeader = headers.get("Authorization") or headers.get("authorization")
 
-    if not autHeader:
+    if not autHeader or not autHeader.startswith("Bearer "):
       return {
         "statusCode": 401,
         "body": "Unauthorized: No token provided"
       }
     
-    token = autHeader.split(" ")[1]
+    token = autHeader.split(" ", 1)[1]
 
-    user = verify_Token(token)
+    user = verify_token(token)
 
     if not user:
       return {

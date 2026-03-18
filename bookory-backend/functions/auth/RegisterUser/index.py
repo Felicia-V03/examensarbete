@@ -1,11 +1,11 @@
 import json
-from responses.index import send_Response
-from middlewares.errorHandler import error_Handler
-from middlewares.validateUser import validate_User
-from services.users import create_User
+from responses.index import send_response
+from middlewares.errorHandler import error_handler
+from middlewares.validateUser import validate_user
+from services.users import create_user
 
-@error_Handler
-@validate_User
+@error_handler
+@validate_user
 
 def handler(event, context):
   body = event["body"]
@@ -15,11 +15,11 @@ def handler(event, context):
 
   print("Creating user...", body["username"])
 
-  response = create_User(body)
+  response = create_user(body)
 
   if response:
     print("User created successfully", body["username"])
-    return send_Response(201, {
+    return send_response(201, {
       "message": "User created successfully",
       "user": {
         "username": body["username"],
@@ -28,7 +28,7 @@ def handler(event, context):
     })
   else:
     print("Error creating user", body["username"])
-    return send_Response(400, {
+    return send_response(400, {
       "message": "Error creating user",
       "user": {
         "username": body["username"],

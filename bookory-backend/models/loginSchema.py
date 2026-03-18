@@ -1,6 +1,6 @@
 from cerberus import Validator
 
-login_Schema = {
+login_schema = {
   "email": {
     "type": "string",
     "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
@@ -12,4 +12,4 @@ login_Schema = {
   }
 }
 
-validator = Validator(login_Schema)
+validator = Validator(login_schema)

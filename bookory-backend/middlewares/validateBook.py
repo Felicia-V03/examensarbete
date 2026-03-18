@@ -1,22 +1,21 @@
-from models.loginSchema import validator
+from models.bookSchema import validator
 import json
 
-def validate_login(func):
+def validate_book(func):
   def wrapper(event, context):
 
-    # ❌ ingen body
+    # 1. Kolla body
     if "body" not in event or not event["body"]:
       return {
         "statusCode": 400,
         "body": json.dumps({
-          "status": "error",
           "message": "Missing request body"
         })
       }
 
     data = event["body"]
 
-    # ✅ parse JSON om string
+    # 2. Om body är string → parse
     if isinstance(data, str):
       try:
         data = json.loads(data)
@@ -24,27 +23,22 @@ def validate_login(func):
         return {
           "statusCode": 400,
           "body": json.dumps({
-            "status": "error",
             "message": "Invalid JSON"
           })
         }
 
-    # ✅ validera
+    # 3. Validera med Cerberus
     if not validator.validate(data):
       return {
         "statusCode": 400,
         "body": json.dumps({
-          "status": "error",
           "message": "Invalid request body",
           "errors": validator.errors
         })
       }
 
-    # 🔥 VIKTIGT (detta saknades)
+    # 4. Spara validerad data (VIKTIGT)
     event["validated_body"] = data
-
-    # (valfritt men bra)
-    event["body"] = data
 
     return func(event, context)
 

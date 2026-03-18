@@ -59,6 +59,12 @@ functions:
       - httpApi:
           path: /api/book/{id}
           method: put
+  DeleteBookById:
+    handler: functions/books/DeleteBookById/index.handler
+    events:
+      - httpApi:
+          path: /api/book/{id}
+          method: delete
 
 resources:
   Resources:

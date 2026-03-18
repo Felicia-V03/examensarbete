@@ -1,19 +1,19 @@
 import jwt
 from datetime import datetime, timedelta
-import time
 
 SECRET = "bookory_secret_key"
 
-def generate_Token(user):
+def generate_token(user):
   now = datetime.utcnow()
   exp = now + timedelta(hours=2)
   payload = {
     "email": user.get("email") or user.get("user_id"),
+    "userid": user.get("userid") or user.get("user_id"),
     "exp": int(exp.timestamp())
   }
   return jwt.encode(payload, SECRET, algorithm="HS256")
 
-def verify_Token(token):
+def verify_token(token):
   try:
     decoded = jwt.decode(token, SECRET, algorithms=["HS256"])
     return decoded

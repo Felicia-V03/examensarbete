@@ -1,31 +1,64 @@
 from cerberus import Validator
 
-book_Schema = {
-  "title": {
+book_schema = {
+  "open_library_id": {
     "type": "string",
     "minlength": 1,
     "required": True
   },
-  "author": {
+  "status": {
     "type": "string",
     "minlength": 1,
     "required": True
   },
-  "published_year": {
+  "pages": {
+    "type": "integer",
+    "min": 1,
+  },
+  "overall_rating": {
     "type": "integer",
     "min": 0,
-    "required": True
+    "max": 5
   },
-  "isbn": {
-    "type": "string",
-    "regex": "^(97(8|9))?\d{9}(\d|X)$",
-    "required": True
+  "spice_rating": {
+    "type": "integer",
+    "min": 0,
+    "max": 5
   },
-  "genre": {
-    "type": "string",
-    "minlength": 1,
-    "required": True
+  "fluff_rating": {
+    "type": "integer",
+    "min": 0,
+    "max": 5
+  },
+  "tear_rating": {
+    "type": "integer",
+    "min": 0,
+    "max": 5
+  },
+  "humor_rating": {
+    "type": "integer",
+    "min": 0,
+    "max": 5
+  },
+  "notes": {
+    "type": "list",
+    "schema": {
+      "type": "dict",
+      "schema": {
+        "note": {
+          "type": "string",
+        },
+        "page": {
+          "type": "integer",
+          "min": 0,
+        },
+        "color": {
+          "type": "string",
+          "regex": "^#[0-9A-Fa-f]{6}$"
+        },
+      }
+    }
   }
 }
 
-validator = Validator(book_Schema)
+validator = Validator(book_schema)
