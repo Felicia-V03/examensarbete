@@ -15,14 +15,20 @@ def handler(event, context):
   if user:
     db_password = user["attributes"]["password"]
     db_email = user["attributes"]["email"]
+    db_userid = user["attributes"]["userid"]
 
     if body["password"] == db_password:
       token = generate_token({
-        "email": db_email
+        "email": db_email,
+        "userid": db_userid
       })
 
       return send_response(200, {
         "message": "Login successful",
+        "user": {
+          "userid": db_userid,
+          "email": db_email
+        },
         "token": token
       })
 

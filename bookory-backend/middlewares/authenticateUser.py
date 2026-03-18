@@ -6,13 +6,13 @@ def authenticate_user(func):
 
     autHeader = headers.get("Authorization") or headers.get("authorization")
 
-    if not autHeader or "" not in autHeader:
+    if not autHeader or not autHeader.startswith("Bearer "):
       return {
         "statusCode": 401,
         "body": "Unauthorized: No token provided"
       }
     
-    token = autHeader.split(" ")[1]
+    token = autHeader.split(" ", 1)[1]
 
     user = verify_token(token)
 
