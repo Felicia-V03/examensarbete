@@ -3,7 +3,7 @@ from utils.uuid import generate_uuid
 from datetime import datetime
 # from utils.bcrypt import hash_password
 
-def create_User(user):
+def create_user(user):
   print("Creating user...", user)
 
   user_id = generate_uuid(8)
@@ -34,7 +34,7 @@ def create_User(user):
     print("Error creating user:", error)
     return False
 
-def get_User(email):
+def get_user(email):
   try:
     response = table.scan()
     items = response.get("Items", [])

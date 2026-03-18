@@ -1,7 +1,7 @@
 from models.loginSchema import validator
 import json
 
-def validate_Login(func):
+def validate_login(func):
   def wrapper(event, context):
 
     # ❌ ingen body

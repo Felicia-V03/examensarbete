@@ -1,6 +1,6 @@
 from cerberus import Validator
 
-book_Schema = {
+book_schema = {
   "title": {
     "type": "string",
     "minlength": 1,
@@ -28,4 +28,4 @@ book_Schema = {
   }
 }
 
-validator = Validator(book_Schema)
+validator = Validator(book_schema)
