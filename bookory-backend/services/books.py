@@ -87,3 +87,35 @@ def get_books(user_id):
   except Exception as error:
     print("Error getting books:", error)
     return []
+
+def get_book_by_id(user_id, book_id):
+  try:
+    response = table.get_item(
+      Key={
+        "PK": f"USER#{user_id}",
+        "SK": f"BOOK#{book_id}"
+      }
+    )
+
+    item = response.get("Item")
+    if not item:
+      return None
+
+    attributes = item.get("attributes", {})
+    book = {
+      "bookId": book_id,
+      "status": attributes.get("status"),
+      "pages": attributes.get("pages"),
+      "overall_rating": attributes.get("overall_rating"),
+      "spice_rating": attributes.get("spice_rating"),
+      "fluff_rating": attributes.get("fluff_rating"),
+      "tear_rating": attributes.get("tear_rating"),
+      "humor_rating": attributes.get("humor_rating"),
+      "notes": attributes.get("notes", []),
+      "createdAt": attributes.get("createdAt")
+    }
+    return book
+
+  except Exception as error:
+    print("Error getting book:", error)
+    return None
