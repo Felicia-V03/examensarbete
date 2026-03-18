@@ -22,24 +22,15 @@ def add_book(user_id, book_data):
   attributes = {
     "open_library_id": book_id,
     "status": book_data.get("status"),
-    "createdAt": created_at,
+    "pages": "0",
+    "overall_rating": "0",
+    "spice_rating": "0",
+    "fluff_rating": "0",
+    "tear_rating": "0",
+    "humor_rating": "0",
+    "notes": notes,
+    "createdAt": created_at
   }
-
-  if "pages" in book_data:
-    attributes["pages"] = book_data["pages"]
-  if "overall_rating" in book_data:
-    attributes["overall_rating"] = book_data["overall_rating"]
-  if "spice_rating" in book_data:
-    attributes["spice_rating"] = book_data["spice_rating"]
-  if "fluff_rating" in book_data:
-    attributes["fluff_rating"] = book_data["fluff_rating"]
-  if "tear_rating" in book_data:
-    attributes["tear_rating"] = book_data["tear_rating"]
-  if "humor_rating" in book_data:
-    attributes["humor_rating"] = book_data["humor_rating"]
-
-  if notes:
-    attributes["notes"] = notes
 
   try:
     table.put_item(
