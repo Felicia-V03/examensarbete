@@ -3,7 +3,6 @@ from middlewares.errorHandler import error_handler
 from middlewares.authenticateUser import authenticate_user
 from middlewares.validateBook import validate_book
 from services.books import add_book
-import json
 
 @error_handler
 @authenticate_user
@@ -13,16 +12,10 @@ def handler(event, context):
   body = event["validated_body"]
   user = event["user"]
   userid = user["userid"]
-  
+
   result = add_book(userid, body)
 
   if result:
-    return {
-      "statusCode": 201,
-      "body": json.dumps(result)
-    }
+    return send_response(201, result)
   else:
-    return {
-      "statusCode": 500,
-      "body": json.dumps({"message": "Error creating book"})
-    }
+    return send_response(500, {"message": "Error creating book"})

@@ -50,3 +50,40 @@ def add_book(user_id, book_data):
   except Exception as error:
     print("Error adding book:", error)
     return False
+
+def get_books(user_id):
+  try:
+    response = table.query(
+      KeyConditionExpression="PK = :pk AND begins_with(SK, :sk_prefix)",
+      ExpressionAttributeValues={
+        ":pk": f"USER#{user_id}",
+        ":sk_prefix": "BOOK#"
+      }
+    )
+
+    items = response.get("Items", [])
+    books = []
+
+    for item in items:
+      attributes = item.get("attributes", {})
+      book_id = item["SK"].split("#")[1]
+
+      book = {
+        "bookId": book_id,
+        "status": attributes.get("status"),
+        "pages": attributes.get("pages"),
+        "overall_rating": attributes.get("overall_rating"),
+        "spice_rating": attributes.get("spice_rating"),
+        "fluff_rating": attributes.get("fluff_rating"),
+        "tear_rating": attributes.get("tear_rating"),
+        "humor_rating": attributes.get("humor_rating"),
+        "notes": attributes.get("notes", []),
+        "createdAt": attributes.get("createdAt")
+      }
+      books.append(book)
+
+    return books
+
+  except Exception as error:
+    print("Error getting books:", error)
+    return []
