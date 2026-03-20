@@ -3,9 +3,11 @@ from datetime import datetime, timedelta
 
 SECRET = "bookory_secret_key"
 
+# function for generating JWT token for a user
 def generate_token(user):
   now = datetime.utcnow()
   exp = now + timedelta(hours=2)
+  # payload can include any user information you want to encode in the token
   payload = {
     "email": user.get("email") or user.get("user_id"),
     "userid": user.get("userid") or user.get("user_id"),
@@ -13,6 +15,7 @@ def generate_token(user):
   }
   return jwt.encode(payload, SECRET, algorithm="HS256")
 
+# function for verifying JWT token and decoding the payload
 def verify_token(token):
   try:
     decoded = jwt.decode(token, SECRET, algorithms=["HS256"])

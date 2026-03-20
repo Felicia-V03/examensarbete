@@ -4,7 +4,7 @@ import json
 def validate_book(func):
   def wrapper(event, context):
 
-    # 1. Kolla body
+    # check if body exists
     if "body" not in event or not event["body"]:
       return {
         "statusCode": 400,
@@ -13,10 +13,12 @@ def validate_book(func):
         })
       }
 
+    # book data is in body
     data = event["body"]
 
-    # 2. Om body är string → parse
+    # if body is a string, try to parse it as JSON
     if isinstance(data, str):
+      # if body is not valid JSON, return error response
       try:
         data = json.loads(data)
       except json.JSONDecodeError:
@@ -27,7 +29,7 @@ def validate_book(func):
           })
         }
 
-    # 3. Validera med Cerberus
+    # validate data against schema
     if not validator.validate(data):
       return {
         "statusCode": 400,
@@ -37,7 +39,7 @@ def validate_book(func):
         })
       }
 
-    # 4. Spara validerad data (VIKTIGT)
+    # if validation passed, add validated data to event and call the function
     event["validated_body"] = data
 
     return func(event, context)
