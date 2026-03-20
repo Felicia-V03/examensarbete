@@ -124,15 +124,15 @@ def get_book_by_status(user_id, status):
   try:
     response = table.query(
       KeyConditionExpression="PK = :pk AND begins_with(SK, :sk)",
-      FilterExpression="attributes.#s.#val = :status",
+      FilterExpression="#attr.#status = :status",
       ExpressionAttributeValues={
         ":pk": f"USER#{user_id}",
         ":sk": "BOOK#",
-        ":status": {"S": status}
+        ":status": status
       },
       ExpressionAttributeNames={
-        "#s": "M",
-        "#val": "status"
+        "#attr": "attributes",
+        "#status": "status"
       }
     )
 
@@ -155,6 +155,7 @@ def get_book_by_status(user_id, status):
         "notes": attributes.get("notes", []),
         "createdAt": attributes.get("createdAt")
       }
+
       books.append(book)
 
     return books
