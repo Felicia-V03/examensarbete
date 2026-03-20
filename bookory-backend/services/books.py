@@ -119,6 +119,50 @@ def get_book_by_id(user_id, book_id):
   except Exception as error:
     print("Error getting book:", error)
     return None
+  
+def get_book_by_status(user_id, status):
+  try:
+    response = table.query(
+      KeyConditionExpression="PK = :pk AND begins_with(SK, :sk)",
+      FilterExpression="#attr.#status = :status",
+      ExpressionAttributeValues={
+        ":pk": f"USER#{user_id}",
+        ":sk": "BOOK#",
+        ":status": status
+      },
+      ExpressionAttributeNames={
+        "#attr": "attributes",
+        "#status": "status"
+      }
+    )
+
+    items = response.get("Items", [])
+    books = []
+
+    for item in items:
+      attributes = item.get("attributes", {})
+      book_id = item["SK"].split("#")[1]
+
+      book = {
+        "bookId": book_id,
+        "status": attributes.get("status"),
+        "pages": attributes.get("pages"),
+        "overall_rating": attributes.get("overall_rating"),
+        "spice_rating": attributes.get("spice_rating"),
+        "fluff_rating": attributes.get("fluff_rating"),
+        "tear_rating": attributes.get("tear_rating"),
+        "humor_rating": attributes.get("humor_rating"),
+        "notes": attributes.get("notes", []),
+        "createdAt": attributes.get("createdAt")
+      }
+
+      books.append(book)
+
+    return books
+
+  except Exception as error:
+    print("Error:", error)
+    return []
 
 def update_book_by_id(user_id, book_id, update_data):
   try:
