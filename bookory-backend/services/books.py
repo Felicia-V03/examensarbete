@@ -119,3 +119,20 @@ def get_book_by_id(user_id, book_id):
   except Exception as error:
     print("Error getting book:", error)
     return None
+  
+def delete_book_by_id(user_id, book_id):
+  try:
+    table.delete_item(
+      Key={
+        "PK": f"USER#{user_id}",
+        "SK": f"BOOK#{book_id}"
+      }
+    )
+    return {
+      "success": True,
+      "bookId": book_id,
+    }
+
+  except Exception as error:
+    print("Error deleting book:", error)
+    return False
