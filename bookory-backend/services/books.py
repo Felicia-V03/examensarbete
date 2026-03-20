@@ -1,5 +1,7 @@
 from services.client import table
 from datetime import datetime
+from boto3.dynamodb.conditions import Key, Attr
+
 
 def add_book(user_id, book_data):
   print("Adding book...", book_data)
@@ -122,13 +124,17 @@ def get_book_by_id(user_id, book_id):
   
 def get_book_by_status(user_id, status):
   try:
-    response = table.get(
-      KeyConditionExpression="PK = :pk AND begins_with(SK, :sk_prefix)",
-      FilterExpression="attribute_values.status = :status",
+    response = table.query(
+      KeyConditionExpression="PK = :pk AND begins_with(SK, :sk)",
+      FilterExpression="attributes.#s.#val = :status",
       ExpressionAttributeValues={
         ":pk": f"USER#{user_id}",
-        ":sk_prefix": "BOOK#",
-        ":status": status
+        ":sk": "BOOK#",
+        ":status": {"S": status}
+      },
+      ExpressionAttributeNames={
+        "#s": "M",
+        "#val": "status"
       }
     )
 
@@ -156,5 +162,5 @@ def get_book_by_status(user_id, status):
     return books
 
   except Exception as error:
-    print("Error getting books by status:", error)
+    print("Error:", error)
     return []
