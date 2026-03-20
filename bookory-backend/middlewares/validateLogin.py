@@ -4,7 +4,7 @@ import json
 def validate_login(func):
   def wrapper(event, context):
 
-    # ❌ ingen body
+    # check if body exists
     if "body" not in event or not event["body"]:
       return {
         "statusCode": 400,
@@ -14,10 +14,12 @@ def validate_login(func):
         })
       }
 
+    # login data is in body
     data = event["body"]
 
-    # ✅ parse JSON om string
+    # if body is a string, try to parse it as JSON
     if isinstance(data, str):
+      # if body is not valid JSON, return error response
       try:
         data = json.loads(data)
       except json.JSONDecodeError:
@@ -29,7 +31,7 @@ def validate_login(func):
           })
         }
 
-    # ✅ validera
+    # validate data against schema
     if not validator.validate(data):
       return {
         "statusCode": 400,
@@ -40,11 +42,8 @@ def validate_login(func):
         })
       }
 
-    # 🔥 VIKTIGT (detta saknades)
+    # if validation passed, add validated data to event and call the function
     event["validated_body"] = data
-
-    # (valfritt men bra)
-    event["body"] = data
 
     return func(event, context)
 
