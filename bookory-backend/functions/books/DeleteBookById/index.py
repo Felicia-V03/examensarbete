@@ -18,6 +18,6 @@ def handler(event, context):
   result = delete_book_by_id(userid, book_id)
 
   if result:
-    return send_response(201, result)
+    return send_response(200, result)
   else:
     return send_response(500, {"message": "Error deleting book"})
