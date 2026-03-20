@@ -12,32 +12,32 @@ book_schema = {
     "required": True
   },
   "pages": {
-    "type": "integer",
-    "min": 1,
+    "type": "string",
+    "minlength": 1,
   },
   "overall_rating": {
-    "type": "integer",
-    "min": 0,
+    "type": "string",
+    "minlength": 0,
     "max": 5
   },
   "spice_rating": {
-    "type": "integer",
-    "min": 0,
+    "type": "string",
+    "minlength": 0,
     "max": 5
   },
   "fluff_rating": {
-    "type": "integer",
-    "min": 0,
+    "type": "string",
+    "minlength": 0,
     "max": 5
   },
   "tear_rating": {
-    "type": "integer",
-    "min": 0,
+    "type": "string",
+    "minlength": 0,
     "max": 5
   },
   "humor_rating": {
-    "type": "integer",
-    "min": 0,
+    "type": "string",
+    "minlength": 0,
     "max": 5
   },
   "notes": {
@@ -49,7 +49,7 @@ book_schema = {
           "type": "string",
         },
         "page": {
-          "type": "integer",
+          "type": "string",
           "min": 0,
         },
         "color": {
