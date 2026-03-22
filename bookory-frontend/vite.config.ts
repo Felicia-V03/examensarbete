@@ -21,7 +21,7 @@ export default defineConfig({
       '@bookory-frontend/login': resolve(__dirname, 'packages/core/interfaces/login/index.ts'),
       '@bookory-frontend/book': resolve(__dirname, 'packages/core/interfaces/book/index.ts'),
       '@bookory-frontend/button': resolve(__dirname, 'packages/core/interfaces/button/index.ts'),
-      '@bookory-frontend/auth-store': resolve(__dirname, 'packages/core/store/useauth-store/data/index.ts'),
+      '@bookory-frontend/auth-store': resolve(__dirname, 'packages/core/store/useauth-store/data/index.tsx'),
       '@bookory-frontend/useauth-token': resolve(__dirname, 'packages/core/hooks/useauth-token/index.ts'),
       '@bookory-frontend/book-api': resolve(__dirname, 'packages/core/api/book-api/index.ts'),
       
