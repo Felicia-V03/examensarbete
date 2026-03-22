@@ -1,12 +1,20 @@
 import type { Book } from '@bookory-frontend/book';
 import './index.css';
 
+/** Props för BookResults-komponenten */
 interface BookResultsProps {
+  /** Lista med böcker att visa */
   books: Book[];
+  /** Visar laddningsindikator om true */
   isLoading: boolean;
+  /** Totalt antal träffar från API:et */
   totalResults?: number;
 }
 
+/**
+ * BookResults – visar sökresultat med bokomslag, titel, författare och länk till Open Library.
+ * Hanterar laddnings- och tomma resultat-tillstånd.
+ */
 export function BookResults({ books, isLoading, totalResults }: BookResultsProps) {
   if (isLoading) {
     return (

@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import './index.css';
 
+/** Representation av ett navigeringsobjekt i bott-menyn */
 interface NavItem {
   id: string;
   label: string;
@@ -8,6 +9,10 @@ interface NavItem {
   path: string;
 }
 
+/**
+ * Navbar – bott-navigationsmeny för inloggade användare.
+ * Markerar den aktiva routen med CSS-klassen `active`.
+ */
 export function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();

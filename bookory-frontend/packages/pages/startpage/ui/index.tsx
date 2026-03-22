@@ -2,6 +2,11 @@ import './index.css';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../../../src/assets/logo.png';
 import { AuthButton } from '@bookory-frontend/base-button'
+
+/**
+ * StartPage – landningssidan som visäs för icke inloggade användare.
+ * Visar applogotypen och knappar för att navigera till inloggning eller registrering.
+ */
 export const StartPage = () => {
     const navigate = useNavigate();
 

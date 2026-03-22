@@ -6,6 +6,11 @@ import { AuthTabs } from '@bookory-frontend/auth-taps';
 import { AuthTextField } from '@bookory-frontend/login-form';
 import { AuthActionButton } from '@bookory-frontend/base-button';
 
+/**
+ * RegisterPage – registreringssida.
+ * Användaren fyller i namn, e-post, lösenord och bekräftar lösenordet.
+ * Registrera-knappen aktiveras när alla fält är korrekt ifyllda och lösenorden matchar.
+ */
 export const RegisterPage = () => {
   const navigate = useNavigate();
 

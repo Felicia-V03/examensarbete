@@ -1,3 +1,4 @@
+/** Representerar en bok från Open Library API */
 export interface Book {
   key: string;
   title: string;
@@ -13,6 +14,7 @@ export interface Book {
   subject?: string[];
 }
 
+/** Svarsformat från Open Library sök-API */
 export interface OpenLibraryResponse {
   numFound: number;
   start: number;

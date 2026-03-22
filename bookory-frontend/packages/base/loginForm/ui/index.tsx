@@ -1,15 +1,25 @@
 import { useState } from 'react';
 import './index.css';
 
+/** Props för AuthTextField-komponenten */
 interface AuthTextFieldProps {
+  /** Etikettens text ovanför fältet */
   label: string;
+  /** HTML input-typ, t.ex. 'text', 'email', 'password' */
   type?: React.HTMLInputTypeAttribute;
+  /** Det aktuella värdet */
   value: string;
+  /** Callback som anropas när värdet ändras */
   onChange: (value: string) => void;
   autoComplete?: React.HTMLInputAutoCompleteAttribute;
+  /** Om true visas ett öga-ikon för att växla lösenordsvisning */
   showToggle?: boolean; // nytt
 }
 
+/**
+ * AuthTextField – ett textfält för autentiseringsformulär.
+ * Stödjer lösenordstoggle via showToggle-prop.
+ */
 export const AuthTextField = ({
   label,
   type = 'text',

@@ -1,4 +1,3 @@
-
 import './index.css';
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +7,11 @@ import { AuthTabs } from '@bookory-frontend/auth-taps';
 import { AuthTextField } from '@bookory-frontend/login-form';
 import { AuthActionButton } from '@bookory-frontend/base-button';
 
+/**
+ * LoginPage – inloggningssida.
+ * Användaren fyller i e-post och lösenord.
+ * Skickar-knappen aktiveras först när båda fälten är ifyllda.
+ */
 export const LoginPage = () => {
     const navigate = useNavigate();
 

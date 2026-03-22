@@ -5,6 +5,10 @@ import { BookResults } from '@bookory-frontend/search-results';
 import type { Book, OpenLibraryResponse } from '@bookory-frontend/book';
 import './index.css';
 
+/**
+ * SearchPage – sida för att söka böcker via Open Library API.
+ * Visar ett sökfält och resultatlista. Sökningen körs när användaren skickar in formuläret.
+ */
 export function SearchPage() {
   const [books, setBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState(false);
