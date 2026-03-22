@@ -1,4 +1,4 @@
-from models.userSchema import user_Schema, validator
+from models.userSchema import validator
 import json
 
 def validate_user(func):
