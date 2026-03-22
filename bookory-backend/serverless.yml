@@ -8,7 +8,7 @@ provider:
   httpApi:
     cors: true
   iam:
-    role: arn:aws:iam::747901701476:role/BasicLambdaRole
+    role: ${env:IAM_ROLE_ARN}
 
 custom:
   pythonRequirements:

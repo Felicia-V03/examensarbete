@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from '@bookory-frontend/protected-route';
+import { Layout } from '@bookory-frontend/layout';
 import { StartPage } from '@bookory-frontend/startpage';
 import { LoginPage } from '@bookory-frontend/loginpage';
 import { RegisterPage } from '@bookory-frontend/registerpage';
@@ -13,12 +14,15 @@ function App() {
       <Route path="/" element={<StartPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      
 
+      <Route element={<Layout />}>
+        <Route path="/home" element={<HomePage />} />
+      </Route>
+      
       {/* Skyddade routes */}
       <Route element={<ProtectedRoute />}>
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/home" element={<HomePage />} />
+        
         
       </Route>
     </Routes>
