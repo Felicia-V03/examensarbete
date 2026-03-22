@@ -43,7 +43,10 @@
       "@bookory-frontend/book": ["packages/core/interfaces/book/index.ts"],
       "@bookory-frontend/search-results": ["packages/base/search/search-results/ui/index.tsx"],
       "@bookory-frontend/search-input": ["packages/base/search/search-input/ui/index.tsx"],
-      "@bookory-frontend/useauth-token": ["packages/core/hooks/useauth-token/index.ts"]
+      "@bookory-frontend/useauth-token": ["packages/core/hooks/useauth-token/index.ts"],
+      "@bookory-frontend/book-api": ["packages/core/api/book-api/index.ts"],
+      "@bookory-frontend/book-card": ["packages/base/book-card/ui/index.ts"],
+      "@bookory-frontend/book-list": ["packages/base/book-list/ui/index.ts"]
     }
   },
   "include": ["src", "packages"]

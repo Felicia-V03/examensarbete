@@ -1,5 +1,5 @@
 {
-    "name": "@bookory-frontend/api",
+    "name": "@bookory-frontend/book-api",
     "main": "index.ts",
     "types": "./ui/index.tsx"
 }
