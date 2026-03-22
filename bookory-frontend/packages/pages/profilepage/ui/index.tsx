@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 /** Bas-URL till backend API:et */
-const API_BASE_URL = 'https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com';
+const API_BASE_URL = 'https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api/auth/user';
 
 /** Profil-data för en inloggad användare */
 interface Profile {
