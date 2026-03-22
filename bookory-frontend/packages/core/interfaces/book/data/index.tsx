@@ -10,6 +10,7 @@ export interface Book {
   edition_count?: number;
   has_fulltext?: boolean;
   public_scan_b?: boolean;
+  subject?: string[];
 }
 
 export interface OpenLibraryResponse {
