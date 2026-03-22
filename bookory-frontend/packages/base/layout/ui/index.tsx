@@ -2,6 +2,10 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { SearchInput } from '@bookory-frontend/search-input';
 import { Navbar } from '@bookory-frontend/navbar';
 
+/**
+ * Layout – delad layout-komponent för inloggade sidor.
+ * Renderar sökfält högst upp, sidsidan i mitten (via Outlet) och navigationsbar längst ned.
+ */
 export function Layout() {
 	const navigate = useNavigate();
 

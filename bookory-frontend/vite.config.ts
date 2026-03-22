@@ -13,6 +13,7 @@ export default defineConfig({
       '@bookory-frontend/loginpage': resolve(__dirname, 'packages/pages/loginpage/ui/index.tsx'),
       '@bookory-frontend/registerpage': resolve(__dirname, 'packages/pages/registerpage/ui/index.tsx'),
       '@bookory-frontend/searchpage': resolve(__dirname, 'packages/pages/searchpage/ui/index.tsx'),
+      '@bookory-frontend/profilepage': resolve(__dirname, 'packages/pages/profilepage/ui/index.tsx'),
 
       
       // Core

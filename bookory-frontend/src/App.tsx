@@ -1,11 +1,17 @@
+/**
+ * App.tsx – rot-komponenten som definierar applikationens routing.
+ * Publika routes: /, /login, /register.
+ * Skyddade routes (kräver inloggning): /home, /search, /profile – rendereras inuti Layout.
+ */
 import { Routes, Route } from 'react-router-dom';
-import { ProtectedRoute } from '@bookory-frontend/protected-route';
+//import { ProtectedRoute } from '@bookory-frontend/protected-route';
 import { Layout } from '@bookory-frontend/layout';
 import { StartPage } from '@bookory-frontend/startpage';
 import { LoginPage } from '@bookory-frontend/loginpage';
 import { RegisterPage } from '@bookory-frontend/registerpage';
 import { HomePage } from '@bookory-frontend/homepage';
 import { SearchPage } from '@bookory-frontend/searchpage';
+import { ProfilePage } from '@bookory-frontend/profilepage';
 
 function App() {
   return (
@@ -17,17 +23,14 @@ function App() {
 
       <Route element={<Layout />}>
         <Route path="/home" element={<HomePage />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+
       </Route>
       
-      {/* Skyddade routes */}
-      <Route element={<ProtectedRoute />}>
-        <Route path="/search" element={<SearchPage />} />
-        
-        
-      </Route>
+     
     </Routes>
   );
 }
 
 export default App
-

@@ -1,7 +1,10 @@
 import { useFetchBooks } from '@bookory-frontend/book-api';
 import { BookList } from '@bookory-frontend/book-list';
 
-
+/**
+ * HomePage – startsidan för inloggade användare.
+ * Hämtar böcker från Open Library och visar dem grupperade per kategori.
+ */
 export const HomePage = () => {
      const { groupedBooks, loading, error } = useFetchBooks("first+time+caller");
 

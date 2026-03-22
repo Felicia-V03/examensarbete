@@ -1,10 +1,12 @@
 import type { User } from '@bookory-frontend/user';
 
+/** Data som skickas vid inloggning */
 export interface LoginForm {
 	Email: string;
 	password: string;
 }
 
+/** Props för LoginPage – används för att sätta inloggad användare i överliggande komponent */
 export interface LoginPageProps {
 	setCurrentUser: (user: User) => void; // passing from approuter to loginpage and registerpage
 }

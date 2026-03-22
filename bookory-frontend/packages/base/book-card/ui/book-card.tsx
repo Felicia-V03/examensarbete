@@ -1,10 +1,16 @@
 
 import type { Book } from '@bookory-frontend/book';
 
+/** Props för BookCard-komponenten */
 interface Props {
+  /** Boken som ska visas */
   book: Book;
 }
 
+/**
+ * BookCard – visar ett bokomslag, titel, författare och utgivningsår för en bok.
+ * Om bokomslag saknas visas en platshållarbild.
+ */
 export function BookCard({ book }: Props) {
   const coverUrl = book.cover_i
     ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`

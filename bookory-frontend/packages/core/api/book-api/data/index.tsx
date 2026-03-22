@@ -2,13 +2,13 @@
 import { useState, useEffect } from "react";
 import type { Book, OpenLibraryResponse } from '@bookory-frontend/book';
 
-// Hjälpfunktion: plocka 5 random böcker från en array
+/** Plockar `count` slumpmässiga böcker från en array */
 function getRandomBooks(books: Book[], count: number): Book[] {
   const shuffled = [...books].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, count);
 }
 
-// Hjälpfunktion: gruppera böcker per kategori
+/** Grupperar en lista böcker per första ämnekategori */
 function groupByCategory(books: Book[]): Record<string, Book[]> {
   const grouped: Record<string, Book[]> = {};
 
@@ -24,6 +24,11 @@ function groupByCategory(books: Book[]): Record<string, Book[]> {
   return grouped;
 }
 
+/**
+ * useFetchBooks – custom hook som hämtar böcker från Open Library.
+ * Returnerar böcker grupperade per kategori, med 5 slumpmässiga böcker per kategori.
+ * @param query - Söksträng att använda mot Open Library API
+ */
 export function useFetchBooks(query: string) {
   const [groupedBooks, setGroupedBooks] = useState<Record<string, Book[]>>({});
   const [loading, setLoading] = useState(true);
