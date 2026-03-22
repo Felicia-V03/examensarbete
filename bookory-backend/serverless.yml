@@ -16,6 +16,12 @@ custom:
 
 functions:
   ##Auth
+  GetUser:
+    handler: functions/auth/GetUser/index.handler
+    events:
+      - httpApi:
+          path: /api/auth/user
+          method: get
   Login:
     handler: functions/auth/LoginUser/index.handler
     events:
