@@ -46,7 +46,9 @@
       "@bookory-frontend/useauth-token": ["packages/core/hooks/useauth-token/index.ts"],
       "@bookory-frontend/book-api": ["packages/core/api/book-api/index.ts"],
       "@bookory-frontend/book-card": ["packages/base/book-card/ui/index.ts"],
-      "@bookory-frontend/book-list": ["packages/base/book-list/ui/index.ts"]
+      "@bookory-frontend/book-list": ["packages/base/book-list/ui/index.ts"],
+      "@bookory-frontend/navbar": ["packages/base/navbar/ui/index.tsx"],
+      "@bookory-frontend/layout": ["packages/base/layout/ui/index.ts"]
     }
   },
   "include": ["src", "packages"]

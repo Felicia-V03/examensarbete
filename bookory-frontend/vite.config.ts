@@ -20,7 +20,7 @@ export default defineConfig({
       '@bookory-frontend/login': resolve(__dirname, 'packages/core/interfaces/login/index.ts'),
       '@bookory-frontend/book': resolve(__dirname, 'packages/core/interfaces/book/index.ts'),
       '@bookory-frontend/button': resolve(__dirname, 'packages/core/interfaces/button/index.ts'),
-      '@bookory-frontend/auth-store': resolve(__dirname, 'packages/core/store/useauth-store/data/index.ts'),
+      '@bookory-frontend/auth-store': resolve(__dirname, 'packages/core/store/useauth-store/data/index.tsx'),
       '@bookory-frontend/useauth-token': resolve(__dirname, 'packages/core/hooks/useauth-token/index.ts'),
       '@bookory-frontend/book-api': resolve(__dirname, 'packages/core/api/book-api/index.ts'),
       
@@ -37,6 +37,8 @@ export default defineConfig({
       '@bookory-frontend/search-results': resolve(__dirname, 'packages/base/search/search-results/ui/index.tsx'),
       '@bookory-frontend/book-card': resolve(__dirname, 'packages/base/book-card/ui/index.ts'),
       '@bookory-frontend/book-list': resolve(__dirname, 'packages/base/book-list/ui/index.ts'),
+      '@bookory-frontend/navbar': resolve(__dirname, 'packages/base/navbar/ui/index.tsx'),
+      '@bookory-frontend/layout': resolve(__dirname, 'packages/base/layout/ui/index.tsx'),
     }
   }
 })
