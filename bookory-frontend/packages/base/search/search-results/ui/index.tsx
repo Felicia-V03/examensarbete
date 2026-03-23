@@ -38,9 +38,7 @@ export function BookResults({ books, isLoading, totalResults }: BookResultsProps
     return `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`;
   };
 
-  const getBookUrl = (key: string) => {
-    return `https://openlibrary.org${key.replace('/works/', '/work/')}`;
-  };
+  const getBookId = (key: string) => key.split('/').pop();
 
   return (
     <div className="book-results">
@@ -94,12 +92,10 @@ export function BookResults({ books, isLoading, totalResults }: BookResultsProps
               )}
               
               <a 
-                href={getBookUrl(book.key)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="book-link"
+                href={`/detail/${getBookId(book.key)}`}
+                className={`book-link-${book.key}`} 
               >
-                Visa på Open Library
+                Visa mer detaljer
               </a>
             </div>
           </div>

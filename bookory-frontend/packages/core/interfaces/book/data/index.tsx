@@ -22,3 +22,23 @@ export interface OpenLibraryResponse {
   docs: Book[];
   q: string;
 }
+
+export interface Work extends Book {
+  description?: string | { value: string };
+  authors?: { author: { key: string } }[];
+  subjects?: string[];
+}
+
+export interface Edition extends Work {
+  publish_date?: string;
+  number_of_pages?: number;
+  publishers?: string[];
+}
+
+export interface EditionsResponse extends Edition {
+  entries: Edition[];
+}
+
+export interface Author {
+  name: string;
+}
