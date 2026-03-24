@@ -35,7 +35,7 @@ export const LoginPage = () => {
                 localStorage.setItem('authToken', response.data.token);
             }
             
-            navigate('/homepage');
+            navigate('/home');
         } catch (error) {
             console.error('Login failed:', error);
         }
