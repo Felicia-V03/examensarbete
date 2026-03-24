@@ -1,5 +1,5 @@
 {
-    "name": "@bookory-frontend/book",
+    "name": "@bookory-frontend/bookhistory",
     "main": "index.ts",
     "types": "./data/index.tsx"
 }

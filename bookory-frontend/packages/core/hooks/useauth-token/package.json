@@ -1,5 +1,5 @@
 {
     "name": "@bookory-frontend/useauth-token",
     "main": "index.ts",
-    "types": "./ui/index.tsx"
+    "types": "./data/index.tsx"
 }

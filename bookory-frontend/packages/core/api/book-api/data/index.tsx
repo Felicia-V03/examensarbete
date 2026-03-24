@@ -1,6 +1,6 @@
 // useFetchBooks.ts
 import { useState, useEffect } from "react";
-import type { Book, OpenLibraryResponse } from '@bookory-frontend/book';
+import type { Book, OpenLibraryResponse } from 'packages/core/interfaces/book';
 
 /** Plockar `count` slumpmässiga böcker från en array */
 function getRandomBooks(books: Book[], count: number): Book[] {

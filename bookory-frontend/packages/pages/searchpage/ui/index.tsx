@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { SearchInput } from '@bookory-frontend/search-input';
 import { BookResults } from '@bookory-frontend/search-results';
-import type { Book, OpenLibraryResponse } from '@bookory-frontend/book';
+import type { Book, OpenLibraryResponse } from 'packages/core/interfaces/book';
 import './index.css';
 
 /**
