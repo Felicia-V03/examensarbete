@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import axios from 'axios';
 import type { AxiosResponse, AxiosError } from 'axios';
+=======
+import axios, { AxiosError } from 'axios';
+>>>>>>> 2397908e4537d32d703d896018b01e5383f6d370
 import type { LoginForm } from '@bookory-frontend/login';
 
 interface AuthResponse {
@@ -7,7 +11,16 @@ interface AuthResponse {
     token?: string;
 }
 
+<<<<<<< HEAD
 const BASE_URL = 'https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api';
+=======
+export const apiLogin = async (data: LoginForm): Promise<AuthResponse> => {
+    try {
+        const response = await axios.post<AuthResponse>(
+            'https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api/auth/login',
+            data
+        );
+>>>>>>> 2397908e4537d32d703d896018b01e5383f6d370
 
 // Skapar en axios-instans med bas-URL
 const apiClient = axios.create({
@@ -33,8 +46,12 @@ const saveToken = (token?: string): void => {
     }
 };
 
+<<<<<<< HEAD
 // Login
 export const apiLogin = async (data: LoginForm): Promise<AuthResponse> => {
+=======
+export const apiRegister = async (data: LoginForm): Promise<AuthResponse> => {
+>>>>>>> 2397908e4537d32d703d896018b01e5383f6d370
     try {
         const response: AxiosResponse<AuthResponse> = await apiClient.post('/auth/login', data);
         saveToken(response.data.token);

@@ -2,7 +2,7 @@ import type { User } from '@bookory-frontend/user';
 
 /** Data som skickas vid inloggning */
 export interface LoginForm {
-	Email: string;
+	email: string;
 	password: string;
 }
 
