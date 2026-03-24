@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import type { LoginForm } from '@bookory-frontend/login';
 
 interface AuthResponse {
@@ -6,7 +6,7 @@ interface AuthResponse {
     token?: string;
 }
 
-export const apiLogin = async (data: LoginForm): Promise<AxiosResponse<AuthResponse>> => {
+export const apiLogin = async (data: LoginForm): Promise<AuthResponse> => {
     try {
         const response = await axios.post<AuthResponse>(
             'https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api/auth/login',
@@ -28,7 +28,7 @@ export const apiLogin = async (data: LoginForm): Promise<AxiosResponse<AuthRespo
     }
 };
 
-export const apiRegister = async (data: LoginForm): Promise<AxiosResponse<AuthResponse>> => {
+export const apiRegister = async (data: LoginForm): Promise<AuthResponse> => {
     try {
         const response = await axios.post<AuthResponse>(
             'https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api/auth/register',
