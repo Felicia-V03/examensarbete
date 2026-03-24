@@ -1,19 +1,8 @@
 import './index.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-/** Bas-URL till backend API:et */
-const API_BASE_URL = 'https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api/auth/user';
-
-/** Profil-data för en inloggad användare */
-interface Profile {
-  userId: string;
-  name: string;
-  email: string;
-  username: string;
-  phoneNumber?: string;
-  address?: string;
-}
+import { getProfile, updateProfile } from '@bookory-frontend/profile-api';
+import type { Profile } from '@bookory-frontend/profile-api';
 
 /**
  * ProfilePage – profilsida för inloggad användare.
@@ -43,7 +32,9 @@ export const ProfilePage = () => {
   useEffect(() => {
     if (!userId) {
       navigate('/login');
+      return;
     }
+    getProfile(userId).then(setProfileData).catch(() => {});
   }, [userId, navigate]);
 
   /** Öppnar redigeringsläget och förfyller formuläret med aktuell profil */
@@ -65,36 +56,19 @@ export const ProfilePage = () => {
 
     setIsSaving(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/api/profile/${userId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: editFormData.email,
-          phoneNumber: editFormData.phoneNumber,
-          address: editFormData.address,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Kunde inte uppdatera profil');
-      }
-
-      setProfileData(prev =>
-        prev
-          ? {
-              ...prev,
-              email: editFormData.email || prev.email,
-              phoneNumber: editFormData.phoneNumber || prev.phoneNumber,
-              address: editFormData.address || prev.address,
-            }
-          : null
-      );
-
-      const updatedUser = {
-        ...currentUser,
+      const updated = await updateProfile(userId, {
         email: editFormData.email,
         phoneNumber: editFormData.phoneNumber,
         address: editFormData.address,
+      });
+
+      setProfileData(updated);
+
+      const updatedUser = {
+        ...currentUser,
+        email: updated.email,
+        phoneNumber: updated.phoneNumber,
+        address: updated.address,
       };
       localStorage.setItem('currentUser', JSON.stringify(updatedUser));
 

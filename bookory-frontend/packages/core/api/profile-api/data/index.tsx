@@ -19,7 +19,7 @@ interface ApiResponse<T> {
     data?: T;
 }
 
-const BASE_URL = 'https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api';
+const BASE_URL = 'https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api/auth/user';
 
 /** Axios-instans med bas-URL och JSON-headers */
 const apiClient = axios.create({
