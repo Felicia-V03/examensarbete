@@ -18,8 +18,8 @@ export function Navbar() {
   const navigate = useNavigate();
 
   const navItems: NavItem[] = [
-    { id: 'home', label: 'Home', icon: '🏠', path: '/' },
-    { id: 'explore', label: 'Explore', icon: '🧭', path: '/explore' },
+    { id: 'home', label: 'Home', icon: '🏠', path: '/home' },
+    { id: 'explore', label: 'Explore', icon: '🧭', path: '/search' },
     { id: 'library', label: 'Library', icon: '📚', path: '/search' },
     { id: 'profile', label: 'Profile', icon: '👤', path: '/profile' }
   ];

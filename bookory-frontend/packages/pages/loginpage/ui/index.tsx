@@ -31,12 +31,16 @@ export const LoginPage = () => {
         try {
             const response = await apiLogin({ email, password });
 
-            if (response.token) {
-                localStorage.removeItem('authToken');
-                localStorage.setItem('authToken', response.token);
+            console.log('FULL RESPONSE:', response);
+
+            const token = response.data.token;
+
+            if (token) {
+                localStorage.setItem('authToken', token);
+                console.log('Saved token:', token);
+            } else {
+                console.error('No token found in response');
             }
-            
-            console.log('Login successful:', response, response.token);
 
             navigate('/home');
         } catch (error) {

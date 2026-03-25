@@ -7,3 +7,12 @@ export interface User {
     role: string;
     phoneNumber?: string;
 }
+
+export interface Profile {
+    userId: string;
+    name: string;
+    email: string;
+    username: string;
+    phoneNumber?: string;
+    address?: string;
+}
