@@ -10,3 +10,9 @@ export interface LoginForm {
 export interface LoginPageProps {
 	setCurrentUser: (user: User) => void; // passing from approuter to loginpage and registerpage
 }
+
+export interface RegisterForm {
+	username: string;
+	email: string;
+	password: string;
+}

@@ -5,6 +5,7 @@ import { AuthCard } from '@bookory-frontend/auth-card';
 import { AuthTabs } from '@bookory-frontend/auth-taps';
 import { AuthTextField } from '@bookory-frontend/login-form';
 import { AuthActionButton } from '@bookory-frontend/base-button';
+import { apiRegister } from '../../../core/api/auth-api/data';
 
 /**
  * RegisterPage – registreringssida.
@@ -14,27 +15,38 @@ import { AuthActionButton } from '@bookory-frontend/base-button';
 export const RegisterPage = () => {
   const navigate = useNavigate();
 
-  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const canSubmit = useMemo(() => {
     return (
-      name.trim().length > 0 &&
+      username.trim().length > 0 &&
       email.trim().length > 0 &&
       password.length > 0 &&
       confirmPassword.length > 0 &&
       password === confirmPassword
     );
-  }, [name, email, password, confirmPassword]);
+  }, [username, email, password, confirmPassword]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!canSubmit) return;
 
-    navigate('/login');
+    try {
+      const response = apiRegister({ username, email, password });
+
+      console.log('Registration successful:', response);    
+      
+      navigate('/login');
+
+    }
+    catch (error) {
+      console.error('Registration failed:', error);
+    }
+
   };
 
   return (
@@ -45,7 +57,7 @@ export const RegisterPage = () => {
         <AuthTabs active="register" onSelect={(t) => navigate(t === 'login' ? '/login' : '/register')} />
 
         <form className="auth-form" onSubmit={onSubmit}>
-          <AuthTextField label="Name" value={name} onChange={setName} autoComplete="name" />
+          <AuthTextField label="Name" value={username} onChange={setUsername} autoComplete="username" />
           <AuthTextField label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" />
           <AuthTextField 
             label="Password" 
