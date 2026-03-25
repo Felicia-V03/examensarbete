@@ -32,7 +32,7 @@ export const ProfilePage = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     if (!token) {
       navigate('/login');
       return;
@@ -105,10 +105,10 @@ export const ProfilePage = () => {
       <div className="profile-container">
         <section className="profile-header">
           <div className="profile-avatar">
-            {profile.name?.charAt(0).toUpperCase() || 'U'}
+            {profile.username?.charAt(0).toUpperCase() || 'U'}
           </div>
           <div className="profile-info">
-            <h1>{profile.name}</h1>
+            <h1>{profile.username}</h1>
             <p className="profile-email">{profile.email}</p>
             {profile.phoneNumber && <p className="profile-phone">{profile.phoneNumber}</p>}
             {profile.address && <p className="profile-address">{profile.address}</p>}
