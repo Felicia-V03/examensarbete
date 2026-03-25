@@ -31,10 +31,13 @@ export const LoginPage = () => {
         try {
             const response = await apiLogin({ email, password });
 
-            if (response.data.token) {
-                localStorage.setItem('authToken', response.data.token);
+            if (response.token) {
+                localStorage.removeItem('authToken');
+                localStorage.setItem('authToken', response.token);
             }
             
+            console.log('Login successful:', response, response.token);
+
             navigate('/home');
         } catch (error) {
             console.error('Login failed:', error);
