@@ -23,11 +23,10 @@ function App() {
 
       <Route element={<Layout />}>
         <Route path="/home" element={<HomePage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/search" element={<SearchPage />} />      
 
       </Route>
-      
+      <Route path="/profile" element={<ProfilePage />} />
      
     </Routes>
   );
