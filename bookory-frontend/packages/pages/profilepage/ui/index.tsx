@@ -1,8 +1,10 @@
 import './index.css';
+import LogoText from '../../../../src/assets/logo-text.png';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getProfile, updateProfile } from '@bookory-frontend/profile-api';
-import type { Profile } from '@bookory-frontend/profile-api';
+import { getProfile, updateProfile } from '@bookory-frontend/auth-api';
+import type { Profile } from '@bookory-frontend/user';
+import { Navbar } from '@bookory-frontend/navbar';
 
 /**
  * ProfilePage – profilsida för inloggad användare.
@@ -18,7 +20,7 @@ export const ProfilePage = () => {
   const [profileMessage, setProfileMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
-  const userId = currentUser?.userId;
+  //const userId = currentUser?.userId;
 
   const profile: Profile = profileData || {
     userId: currentUser?.userId || '',
@@ -30,12 +32,13 @@ export const ProfilePage = () => {
   };
 
   useEffect(() => {
-    if (!userId) {
+    const token = localStorage.getItem('token');
+    if (!token) {
       navigate('/login');
       return;
     }
-    getProfile(userId).then(setProfileData).catch(() => {});
-  }, [userId, navigate]);
+    getProfile().then(setProfileData).catch(() => {});
+  }, [navigate]);
 
   /** Öppnar redigeringsläget och förfyller formuläret med aktuell profil */
   const handleStartEditProfile = () => {
@@ -52,11 +55,9 @@ export const ProfilePage = () => {
 
   /** Skickar uppdaterad profil till API:et och sparar lokalt i localStorage */
   const handleSaveProfile = async () => {
-    if (!userId) return;
-
     setIsSaving(true);
     try {
-      const updated = await updateProfile(userId, {
+      const updated = await updateProfile({
         email: editFormData.email,
         phoneNumber: editFormData.phoneNumber,
         address: editFormData.address,
@@ -96,8 +97,11 @@ export const ProfilePage = () => {
     window.location.reload();
   };
 
-  return (
+  return (    
     <div className="profile-page">
+        <figure className="logo">
+            <img src={LogoText} alt="Bookory Image" className="logo-image" />
+        </figure>
       <div className="profile-container">
         <section className="profile-header">
           <div className="profile-avatar">
@@ -183,6 +187,7 @@ export const ProfilePage = () => {
           </div>
         )}
       </div>
+      <Navbar/>
     </div>
   );
 };
