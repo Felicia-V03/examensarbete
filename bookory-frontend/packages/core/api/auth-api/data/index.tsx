@@ -19,7 +19,7 @@ interface UserApiResponse {
 
 /** Lägger till Authorization-header om token finns */
 const getAuthHeaders = () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
