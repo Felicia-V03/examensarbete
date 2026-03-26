@@ -25,12 +25,11 @@ function App() {
 
       <Route element={<Layout />}>
         <Route path="/home" element={<HomePage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/detail/:id" element={<DetailPage />} />
+        <Route path="/search" element={<SearchPage />} />      
+
       </Route>
-      
-     
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/detail/:bookId" element={<DetailPage />} />
     </Routes>
   );
 }

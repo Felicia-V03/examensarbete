@@ -30,3 +30,4 @@ export const AuthActionButton = ({ label, disabled }: AuthActionButtonProps) => 
         </button>
     );
 };
+

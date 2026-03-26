@@ -42,3 +42,20 @@ export interface EditionsResponse extends Edition {
 export interface Author {
   name: string;
 }
+
+export interface PostBookForm {
+	open_library_id: string;
+	status: string;
+}
+
+export interface UpdateForm {
+	open_library_id?: string;
+	status?: string;
+  pages?: string;
+  overall_rating?: string;
+  spice_rating?: string;
+  fluff_rating?: string;
+  tear_rating?: string;
+  humor_rating?: string;
+  notes?: []
+}

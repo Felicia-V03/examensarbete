@@ -1,19 +1,10 @@
 import './index.css';
+import LogoText from '../../../../src/assets/logo-text.png';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-/** Bas-URL till backend API:et */
-const API_BASE_URL = 'https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api/auth/user';
-
-/** Profil-data för en inloggad användare */
-interface Profile {
-  userId: string;
-  name: string;
-  email: string;
-  username: string;
-  phoneNumber?: string;
-  address?: string;
-}
+import { getProfile, updateProfile } from '@bookory-frontend/auth-api';
+import type { Profile } from '@bookory-frontend/user';
+import { Navbar } from '@bookory-frontend/navbar';
 
 /**
  * ProfilePage – profilsida för inloggad användare.
@@ -29,7 +20,7 @@ export const ProfilePage = () => {
   const [profileMessage, setProfileMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
-  const userId = currentUser?.userId;
+  //const userId = currentUser?.userId;
 
   const profile: Profile = profileData || {
     userId: currentUser?.userId || '',
@@ -41,10 +32,13 @@ export const ProfilePage = () => {
   };
 
   useEffect(() => {
-    if (!userId) {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
       navigate('/login');
+      return;
     }
-  }, [userId, navigate]);
+    getProfile().then(setProfileData).catch(() => {});
+  }, [navigate]);
 
   /** Öppnar redigeringsläget och förfyller formuläret med aktuell profil */
   const handleStartEditProfile = () => {
@@ -61,40 +55,21 @@ export const ProfilePage = () => {
 
   /** Skickar uppdaterad profil till API:et och sparar lokalt i localStorage */
   const handleSaveProfile = async () => {
-    if (!userId) return;
-
     setIsSaving(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/api/profile/${userId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: editFormData.email,
-          phoneNumber: editFormData.phoneNumber,
-          address: editFormData.address,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Kunde inte uppdatera profil');
-      }
-
-      setProfileData(prev =>
-        prev
-          ? {
-              ...prev,
-              email: editFormData.email || prev.email,
-              phoneNumber: editFormData.phoneNumber || prev.phoneNumber,
-              address: editFormData.address || prev.address,
-            }
-          : null
-      );
-
-      const updatedUser = {
-        ...currentUser,
+      const updated = await updateProfile({
         email: editFormData.email,
         phoneNumber: editFormData.phoneNumber,
         address: editFormData.address,
+      });
+
+      setProfileData(updated);
+
+      const updatedUser = {
+        ...currentUser,
+        email: updated.email,
+        phoneNumber: updated.phoneNumber,
+        address: updated.address,
       };
       localStorage.setItem('currentUser', JSON.stringify(updatedUser));
 
@@ -122,15 +97,18 @@ export const ProfilePage = () => {
     window.location.reload();
   };
 
-  return (
+  return (    
     <div className="profile-page">
+        <figure className="logo">
+            <img src={LogoText} alt="Bookory Image" className="logo-image" />
+        </figure>
       <div className="profile-container">
         <section className="profile-header">
           <div className="profile-avatar">
-            {profile.name?.charAt(0).toUpperCase() || 'U'}
+            {profile.username?.charAt(0).toUpperCase() || 'U'}
           </div>
           <div className="profile-info">
-            <h1>{profile.name}</h1>
+            <h1>{profile.username}</h1>
             <p className="profile-email">{profile.email}</p>
             {profile.phoneNumber && <p className="profile-phone">{profile.phoneNumber}</p>}
             {profile.address && <p className="profile-address">{profile.address}</p>}
@@ -209,6 +187,7 @@ export const ProfilePage = () => {
           </div>
         )}
       </div>
+      <Navbar/>
     </div>
   );
 };

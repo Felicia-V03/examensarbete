@@ -6,6 +6,7 @@ import { AuthCard } from '@bookory-frontend/auth-card';
 import { AuthTabs } from '@bookory-frontend/auth-taps';
 import { AuthTextField } from '@bookory-frontend/login-form';
 import { AuthActionButton } from '@bookory-frontend/base-button';
+import { apiLogin } from '../../../core/api/auth-api/data';
 
 /**
  * LoginPage – inloggningssida.
@@ -22,12 +23,29 @@ export const LoginPage = () => {
         return email.trim().length > 0 && password.length > 0;
     }, [email, password]);
 
-    const onSubmit = (e: React.FormEvent) => {
+    const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!canSubmit) return;
 
-        navigate('/');
+        try {
+            const response = await apiLogin({ email, password });
+
+            console.log('FULL RESPONSE:', response);
+
+            const token = response.token;
+
+            if (token) {
+                localStorage.setItem('authToken', token);
+                console.log('Saved token:', token);
+            } else {
+                console.error('No token found in response');
+            }
+
+            navigate('/home');
+        } catch (error) {
+            console.error('Login failed:', error);
+        }
     };
 
     return (
@@ -50,9 +68,12 @@ export const LoginPage = () => {
                         showToggle
                     />
 
-                    <AuthActionButton label="Log in" disabled={!canSubmit} />
+                    <AuthActionButton 
+                        label="Log in" 
+                        disabled={!canSubmit} 
+                    />
 
-                    <button
+                    {/* <button
                         className="auth-link"
                         type="button"
                         onClick={() => {
@@ -60,7 +81,7 @@ export const LoginPage = () => {
                         }}
                     >
                         Forget password?
-                    </button>
+                    </button> */}
                 </form>
             </AuthCard>
         </main>

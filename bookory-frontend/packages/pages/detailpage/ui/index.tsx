@@ -3,14 +3,16 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import type { Work, EditionsResponse, Author } from '@bookory-frontend/book';
 import axios from 'axios';
+import { apiGetBookById, apiPostBook, apiPutBook } from '@bookory-frontend/book-api';
 
 export const DetailPage = () => {
-  const { id } = useParams();
+  const { bookId } = useParams();
 
   const [work, setWork] = useState<Work | null>(null);
   const [editions, setEditions] = useState<EditionsResponse | null>(null);
   const [authors, setAuthors] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [readingStatus, setReadingStatus] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,9 +21,9 @@ export const DetailPage = () => {
       try {
         // 1️⃣ Hämta work + editions
         const [workRes, editionsRes] = await Promise.all([
-          axios.get<Work>(`https://openlibrary.org/works/${id}.json`),
+          axios.get<Work>(`https://openlibrary.org/works/${bookId}.json`),
           axios.get<EditionsResponse>(
-            `https://openlibrary.org/works/${id}/editions.json`
+            `https://openlibrary.org/works/${bookId}/editions.json`
           )
         ]);
 
@@ -48,13 +50,46 @@ export const DetailPage = () => {
       }
     };
 
-    if (id) fetchData();
-  }, [id]);
+    if (bookId) fetchData();
 
-  // const getCoverUrl = (coverId?: number) => {
-  //   if (!coverId) return '';
-  //   return `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`;
+  }, [bookId]);
+
+  // const getCoverUrl = (coverbookId?: number) => {
+  //   if (!coverbookId) return '';
+  //   return `https://covers.openlibrary.org/b/bookId/${coverbookId}-L.jpg`;
   // };
+  const handleStatusChange = async (status: string) => {
+    setReadingStatus(status);
+
+    if (!bookId || !work) return;
+
+    try {
+      // 1️⃣ Kolla om bok finns
+      let book;
+
+      try {
+        book = await apiGetBookById(bookId);
+      } catch (err) {
+        // 2️⃣ Om inte finns → skapa
+        book = await apiPostBook({
+          open_library_id: bookId,
+          status
+        });
+      }
+
+      // 3️⃣ Uppdatera status
+      await apiPutBook(
+        {open_library_id: bookId,
+        status},
+        bookId
+      );
+
+      console.log('Status updated:', status);
+
+    } catch (error) {
+      console.error('Failed to update status:', error);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -76,7 +111,7 @@ export const DetailPage = () => {
   const firstEdition = editions?.entries?.[0];
 
   return (
-    <main className={`detail-page detail-page-${id}`}>
+    <main className={`detail-page detail-page-${bookId}`}>
       <div className="book-detail">
 
         {/* 📕 Omslag */}
@@ -91,6 +126,22 @@ export const DetailPage = () => {
         {/* 📖 Titel */}
         <h1>{work.title}</h1>
 
+        <div className="reading-status">
+          <label htmlFor="status"><strong>Status:</strong></label>
+
+          <select
+            id="status"
+            value={readingStatus || ''}
+            onChange={(e) => handleStatusChange(e.target.value)}
+            className="status-dropdown"
+          >
+            <option value="">Select status</option>
+            <option value="want-to-read">Want to Read</option>
+            <option value="currently-reading">Currently Reading</option>
+            <option value="read">Read</option>
+          </select>
+        </div>
+
         {/* ✍️ Författare */}
         {authors.length > 0 && (
           <p><strong>By </strong> {authors.join(', ')}</p>
@@ -103,7 +154,7 @@ export const DetailPage = () => {
           </p>
         )}
 
-        {/* 📄 Sidor */}
+        {/* 📄 SbookIdor */}
         {firstEdition?.number_of_pages && (
           <p><strong>Pages:</strong> {firstEdition.number_of_pages}</p>
         )}
