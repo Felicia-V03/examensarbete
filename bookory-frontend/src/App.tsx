@@ -13,7 +13,7 @@ import { HomePage } from '@bookory-frontend/homepage';
 import { SearchPage } from '@bookory-frontend/searchpage';
 import { ProfilePage } from '@bookory-frontend/profilepage';
 import { DetailPage } from '@bookory-frontend/detailpage';
-
+import { ShelfPage } from '@bookory-frontend/shelfpage';
 
 function App() {
   return (
@@ -26,6 +26,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/home" element={<HomePage />} />
         <Route path="/search" element={<SearchPage />} />      
+        <Route path="/shelf" element={<ShelfPage />} />
 
       </Route>
       <Route path="/profile" element={<ProfilePage />} />
