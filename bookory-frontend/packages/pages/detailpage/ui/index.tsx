@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import type { Work, EditionsResponse, Author } from '@bookory-frontend/book';
 import axios from 'axios';
-import { apiGetBookById, apiPostBook, apiPutBook } from '@bookory-frontend/book-api';
+import { apiGetBookById, apiPostBook, apiPutBook, apiDeleteBook } from '@bookory-frontend/book-api';
 
 export const DetailPage = () => {
   const { bookId } = useParams();
@@ -12,7 +12,7 @@ export const DetailPage = () => {
   const [editions, setEditions] = useState<EditionsResponse | null>(null);
   const [authors, setAuthors] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [readingStatus, setReadingStatus] = useState<string | null>(null);
+  const [readingStatus, setReadingStatus] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,7 +50,28 @@ export const DetailPage = () => {
       }
     };
 
-    if (bookId) fetchData();
+    const fetchStatus = async () => {
+    if (!bookId) return;
+
+    try {
+      const book = await apiGetBookById(bookId);
+
+      if (book?.status) {
+        setReadingStatus(book.status);
+      } else {
+        setReadingStatus('');
+      }
+
+    } catch (error) {
+      // om 404 → ingen bok sparad ännu
+      setReadingStatus('');
+    }
+  };
+
+    if (bookId) {
+      fetchData();
+      fetchStatus();
+    }
 
   }, [bookId]);
 
@@ -61,26 +82,40 @@ export const DetailPage = () => {
   const handleStatusChange = async (status: string) => {
     setReadingStatus(status);
 
-    if (!bookId || !work) return;
+    if (!bookId) return;
 
     try {
-      // 1️⃣ Kolla om bok finns
+      // ❌ 1. DELETE direkt om ingen status
+      if (!status) {
+        const existingBook = await apiGetBookById(bookId);
+
+        if (existingBook) {
+          await apiDeleteBook(bookId);
+          console.log('Book deleted');
+        }
+
+        return; // 🛑 stoppa här
+      }
+
+      // 2️⃣ Kolla om bok finns
       let book;
 
       try {
         book = await apiGetBookById(bookId);
       } catch (err) {
-        // 2️⃣ Om inte finns → skapa
+       // 2️⃣ Om inte finns → skapa
         book = await apiPostBook({
           open_library_id: bookId,
           status
         });
       }
 
-      // 3️⃣ Uppdatera status
+      // 4️⃣ Uppdatera status
       await apiPutBook(
-        {open_library_id: bookId,
-        status},
+        {
+          open_library_id: bookId,
+          status
+        },
         bookId
       );
 
@@ -131,7 +166,7 @@ export const DetailPage = () => {
 
           <select
             id="status"
-            value={readingStatus || ''}
+            value={readingStatus}
             onChange={(e) => handleStatusChange(e.target.value)}
             className="status-dropdown"
           >
