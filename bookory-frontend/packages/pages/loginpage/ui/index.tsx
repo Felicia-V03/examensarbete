@@ -33,7 +33,7 @@ export const LoginPage = () => {
 
             console.log('FULL RESPONSE:', response);
 
-            const token = response.data.token;
+            const token = response.token;
 
             if (token) {
                 localStorage.setItem('authToken', token);

@@ -1,6 +1,7 @@
 // useFetchBooks.ts
 import { useState, useEffect } from "react";
-import type { Book, OpenLibraryResponse } from 'packages/core/interfaces/book';
+import type { Book, OpenLibraryResponse, PostBookForm, UpdateForm } from 'packages/core/interfaces/book';
+import axios from 'axios';
 
 /** Plockar `count` slumpmässiga böcker från en array */
 function getRandomBooks(books: Book[], count: number): Book[] {
@@ -62,4 +63,87 @@ export function useFetchBooks(query: string) {
   }, [query]);
 
   return { groupedBooks, loading, error };
+}
+
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('authToken');
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
+
+export const apiGetBooks = async () => {
+  try {
+    const response = await axios.get(
+      `https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api/books`,
+      { headers: getAuthHeaders() }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error('Kunde inte hämta böcker');
+  }
+};
+
+export const apiPostBook = async (data: PostBookForm) => {
+  try {
+    const response = await axios.post(
+      `https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api/book`,
+      data,
+      { headers: getAuthHeaders() }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error('Kunde inte lägga till bok');
+  }
+};
+
+export const apiGetBookById = async (id: string) => {
+  try {
+    const response = await axios.get(
+      `https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api/book/${id}`,
+      { headers: getAuthHeaders() }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error('Kunde inte hämta bok');
+  }
+};
+
+export const apiGetBookByStatus = async (status: string) => {
+  try {
+    const response = await axios.get(
+      `https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api/book/status=${status}`,
+      { headers: getAuthHeaders() }
+    );
+
+    return response.data;
+
+  } catch (error) {
+    throw new Error('Kunde inte hämta böcker med status');
+  }
+};
+
+export const apiPutBook = async (data: UpdateForm, id: string) => {
+  try {
+    const response = await axios.put(
+      `https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api/book/${id}`,
+      data,
+      { headers: getAuthHeaders() }
+    );
+
+    return response.data;
+
+  } catch (error) {
+    throw new Error('Kunde inte uppdatera bok');
+  }
+};
+
+export const apiDeleteBook = async (id: string) => {
+  try {
+    const response = await axios.delete(
+      `https://hehkmce6d2.execute-api.eu-north-1.amazonaws.com/api/book/${id}`,
+      { headers: getAuthHeaders() }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error('Kunde inte hämta bok');
+  }
 }

@@ -42,7 +42,7 @@ export const apiLogin = async (data: LoginForm): Promise<AuthResponse> => {
         );
 
         if (response.status === 200) {
-            return response;
+            return response.data;
         } else {
             throw new Error(response.data?.message || 'Login failed');
         }
@@ -66,7 +66,7 @@ export const apiRegister = async (data: RegisterForm): Promise<AuthResponse> => 
         );
 
         if (response.status === 201) {
-            return response;
+            return response.data;
         } else {
             throw new Error(response.data?.message || 'Registration failed');
         }

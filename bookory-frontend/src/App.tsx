@@ -12,6 +12,8 @@ import { RegisterPage } from '@bookory-frontend/registerpage';
 import { HomePage } from '@bookory-frontend/homepage';
 import { SearchPage } from '@bookory-frontend/searchpage';
 import { ProfilePage } from '@bookory-frontend/profilepage';
+import { DetailPage } from '@bookory-frontend/detailpage';
+
 
 function App() {
   return (
@@ -27,7 +29,7 @@ function App() {
 
       </Route>
       <Route path="/profile" element={<ProfilePage />} />
-     
+      <Route path="/detail/:bookId" element={<DetailPage />} />
     </Routes>
   );
 }
