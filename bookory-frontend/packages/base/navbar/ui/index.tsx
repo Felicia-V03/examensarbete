@@ -20,7 +20,7 @@ export function Navbar() {
   const navItems: NavItem[] = [
     { id: 'home', label: 'Home', icon: '🏠', path: '/home' },
     { id: 'explore', label: 'Explore', icon: '🧭', path: '/search' },
-    { id: 'library', label: 'Library', icon: '📚', path: '/search' },
+    { id: 'library', label: 'Library', icon: '📚', path: '/shelf' },
     { id: 'profile', label: 'Profile', icon: '👤', path: '/profile' }
   ];
 
