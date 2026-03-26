@@ -79,13 +79,13 @@ export const DetailPage = () => {
   //   if (!coverbookId) return '';
   //   return `https://covers.openlibrary.org/b/bookId/${coverbookId}-L.jpg`;
   // };
+  
   const handleStatusChange = async (status: string) => {
     setReadingStatus(status);
 
     if (!bookId) return;
 
     try {
-      // ❌ 1. DELETE direkt om ingen status
       if (!status) {
         const existingBook = await apiGetBookById(bookId);
 
@@ -94,23 +94,20 @@ export const DetailPage = () => {
           console.log('Book deleted');
         }
 
-        return; // 🛑 stoppa här
+        return;
       }
 
-      // 2️⃣ Kolla om bok finns
       let book;
 
       try {
         book = await apiGetBookById(bookId);
       } catch (err) {
-       // 2️⃣ Om inte finns → skapa
         book = await apiPostBook({
           open_library_id: bookId,
           status
         });
       }
 
-      // 4️⃣ Uppdatera status
       await apiPutBook(
         {
           open_library_id: bookId,
