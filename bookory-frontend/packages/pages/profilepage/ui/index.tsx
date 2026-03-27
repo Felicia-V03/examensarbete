@@ -94,7 +94,7 @@ export const ProfilePage = () => {
   const handleLogout = () => {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('user');
-    window.location.reload();
+    window.location.href='/';
   };
 
   return (    
