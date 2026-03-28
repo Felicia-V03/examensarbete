@@ -14,6 +14,8 @@ export default defineConfig({
       '@bookory-frontend/registerpage': resolve(__dirname, 'packages/pages/registerpage/ui/index.tsx'),
       '@bookory-frontend/searchpage': resolve(__dirname, 'packages/pages/searchpage/ui/index.tsx'),
       '@bookory-frontend/profilepage': resolve(__dirname, 'packages/pages/profilepage/ui/index.tsx'),
+      '@bookory-frontend/detailpage': resolve(__dirname, 'packages/pages/detailpage/ui/index.tsx'),
+      '@bookory-frontend/shelfpage': resolve(__dirname, 'packages/pages/shelfpage/ui/index.tsx'),
 
       
       // Core
@@ -44,6 +46,7 @@ export default defineConfig({
       '@bookory-frontend/book-list': resolve(__dirname, 'packages/base/book-list/ui/index.ts'),
       '@bookory-frontend/navbar': resolve(__dirname, 'packages/base/navbar/ui/index.tsx'),
       '@bookory-frontend/layout': resolve(__dirname, 'packages/base/layout/ui/index.tsx'),
+      '@bookory-frontend/header': resolve(__dirname, 'packages/base/header/ui/index.tsx'),
     }
   }
 })
