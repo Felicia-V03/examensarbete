@@ -1,4 +1,4 @@
-import type { Book } from 'packages/core/interfaces/book';
+import type { Book } from '@bookory-frontend/book';
 import './index.css';
 
 /** Props för BookResults-komponenten */

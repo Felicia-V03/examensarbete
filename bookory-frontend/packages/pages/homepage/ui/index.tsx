@@ -13,7 +13,7 @@ export const HomePage = () => {
 
   return (
     <div>
-      <h1>Böcker per kategori</h1>
+      <h1>Explore the world</h1>
       {Object.entries(groupedBooks).map(([category, books]) => (
         <BookList key={category} category={category} books={books} />
       ))}

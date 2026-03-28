@@ -1,4 +1,5 @@
 import { Outlet, useNavigate } from 'react-router-dom';
+import { Header } from '@bookory-frontend/header';
 import { SearchInput } from '@bookory-frontend/search-input';
 import { Navbar } from '@bookory-frontend/navbar';
 
@@ -11,6 +12,7 @@ export function Layout() {
 
 	return (
 		<>
+			<Header />
 			<SearchInput onSearch={(q) => navigate(`/search?q=${encodeURIComponent(q)}`)} />
 			<main>
 				<Outlet />

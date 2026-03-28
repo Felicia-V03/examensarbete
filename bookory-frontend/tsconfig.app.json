@@ -32,6 +32,9 @@
       "@bookory-frontend/registerpage": ["packages/pages/registerpage/ui/index.tsx"],
       "@bookory-frontend/searchpage": ["packages/pages/searchpage/ui/index.tsx"],
       "@bookory-frontend/profilepage": ["packages/pages/profilepage/ui/index.tsx"],
+      "@bookory-frontend/detailpage": ["packages/pages/detailpage/ui/index.tsx"],
+      "@bookory-frontend/shelfpage": ["packages/pages/shelfpage/ui/index.tsx"],
+
       "@bookory-frontend/user": ["packages/core/interfaces/user/index.ts"],
       "@bookory-frontend/button": ["packages/core/interfaces/button/index.ts"],
       "@bookory-frontend/bookhistory": ["packages/core/interfaces/bookhistory/index.ts"],
@@ -40,6 +43,7 @@
       "@bookory-frontend/auth-context": ["packages/core/store/useauth-store/data/index.tsx"],
       "@bookory-frontend/auth-store": ["packages/core/store/useauth-store/data/index.tsx"],
       "@bookory-frontend/auth-api": ["packages/core/api/auth-api/data/index.tsx"],
+
       "@bookory-frontend/protected-route": ["packages/base/protected-route/ui/index.tsx"],
       "@bookory-frontend/auth-card": ["packages/base/auth/auth-card/ui/index.tsx"],
       "@bookory-frontend/auth-taps": ["packages/base/auth/auth-taps/ui/index.tsx"],
@@ -52,7 +56,8 @@
       "@bookory-frontend/book-card": ["packages/base/book-card/ui/index.ts"],
       "@bookory-frontend/book-list": ["packages/base/book-list/ui/index.ts"],
       "@bookory-frontend/navbar": ["packages/base/navbar/ui/index.tsx"],
-      "@bookory-frontend/layout": ["packages/base/layout/ui/index.ts"]
+      "@bookory-frontend/layout": ["packages/base/layout/ui/index.ts"],
+      "@bookory-frontend/header": ["packages/base/header/ui/index.ts"]
     }
   },
   "include": ["src", "packages"]

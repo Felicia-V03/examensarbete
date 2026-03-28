@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
-import { SearchInput } from '@bookory-frontend/search-input';
 import { BookResults } from '@bookory-frontend/search-results';
-import type { Book, OpenLibraryResponse } from 'packages/core/interfaces/book';
+import type { Book, OpenLibraryResponse } from '@bookory-frontend/book';
 import './index.css';
 
 /**
  * SearchPage – sida för att söka böcker via Open Library API.
- * Visar ett sökfält och resultatlista. Sökningen körs när användaren skickar in formuläret.
+ * Visar ett sökfält och resultatlista. Sökningen körs när användaren skickar in formuläret
+ * eller när URL-parametern ?q= finns.
  */
 export function SearchPage() {
+  const [searchParams] = useSearchParams();
   const [books, setBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalResults, setTotalResults] = useState<number>();
@@ -42,16 +44,20 @@ export function SearchPage() {
     }
   };
 
+  // Kör sökning automatiskt om ?q= finns i URL:en
+  useEffect(() => {
+    const q = searchParams.get('q');
+    if (q) {
+      searchBooks(q);
+    }
+  }, []);
+
   return (
     <div className="search-page">
       <div className="search-container">
-        <header className="search-header">
-          <h1>Boksökning</h1>
-          <p>Sök efter böcker från Open Library</p>
-        </header>
-        
-        <SearchInput onSearch={searchBooks} isLoading={isLoading} />
-        
+        <h1 className="search-title">
+          What are you looking for?
+        </h1>
         {hasSearched && (
           <BookResults 
             books={books} 
