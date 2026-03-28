@@ -7,6 +7,7 @@ import { AuthTabs } from '@bookory-frontend/auth-taps';
 import { AuthTextField } from '@bookory-frontend/login-form';
 import { AuthActionButton } from '@bookory-frontend/base-button';
 import { apiLogin } from '../../../core/api/auth-api/data';
+import { useAuthStore } from '@bookory-frontend/auth-store';
 
 /**
  * LoginPage – inloggningssida.
@@ -15,6 +16,7 @@ import { apiLogin } from '../../../core/api/auth-api/data';
  */
 export const LoginPage = () => {
     const navigate = useNavigate();
+    const login = useAuthStore((state) => state.login);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -34,12 +36,16 @@ export const LoginPage = () => {
             console.log('FULL RESPONSE:', response);
 
             const token = response.token;
+            const user = response.user;
 
             if (token) {
-                localStorage.setItem('authToken', token);
-                console.log('Saved token:', token);
+                localStorage.setItem('token', token);
             } else {
                 console.error('No token found in response');
+            }
+
+            if (user) {
+                login(user);
             }
 
             navigate('/home');

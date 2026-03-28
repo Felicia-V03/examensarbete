@@ -1,5 +1,6 @@
 import { useFetchBooks } from '@bookory-frontend/book-api';
 import { BookList } from '@bookory-frontend/book-list';
+import './index.css';
 
 /**
  * HomePage – startsidan för inloggade användare.
@@ -13,10 +14,12 @@ export const HomePage = () => {
 
   return (
     <div>
+      <section className="home-page">
       <h1>Explore the world</h1>
       {Object.entries(groupedBooks).map(([category, books]) => (
         <BookList key={category} category={category} books={books} />
       ))}
+      </section>
     </div>
   );
 }

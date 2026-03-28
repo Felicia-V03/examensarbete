@@ -9,6 +9,7 @@ import type { LoginForm, RegisterForm } from '@bookory-frontend/login';
 interface AuthResponse {
     message?: string;
     token?: string;
+    user?: Profile;
 }
 
 interface UserApiResponse {

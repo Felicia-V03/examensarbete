@@ -1,3 +1,4 @@
+import './index.css';
 import { Link } from 'react-router-dom';
 import LogoText from '../../../../src/assets/Logo-text.png';
 
