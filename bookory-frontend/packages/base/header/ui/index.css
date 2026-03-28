@@ -1,7 +1,9 @@
-.home-page {
+.header {
     width: 100vw;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     background-color: #F2E9DF;
+    padding: 1rem;
 }
