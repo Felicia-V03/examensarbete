@@ -29,9 +29,9 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/shelf" element={<ShelfPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/detail/:bookId" element={<DetailPage />} />
         </Route>
       </Route>
+      <Route path="/detail/:bookId" element={<DetailPage />} />
     </Routes>
   );
 }

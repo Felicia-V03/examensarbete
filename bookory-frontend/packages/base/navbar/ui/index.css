@@ -77,9 +77,9 @@
 }
 
 /* Add padding to main content to avoid overlap with navbar */
-body {
+/* body {
   padding-bottom: 80px;
-}
+} */
 
 @media (max-width: 480px) {
   body {
