@@ -11,7 +11,7 @@ import { SlHome } from "react-icons/sl";
 
 /**
  * ProfilePage – profilsida för inloggad användare.
- * Visar profilinformation och möjliggör redigering av e-post, telefonnummer och adress.
+ * Visar profilinformation och möjliggör redigering av e-post, telefonnummer och address.
  * Omdirigerar till /login om ingen användare är inloggad.
  */
 export const ProfilePage = () => {
@@ -181,10 +181,10 @@ export const ProfilePage = () => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="edit-address">
-                    <i className="edit-adress_icon">
+                    <i className="edit-address_icon">
                         <SlHome />
                         </i>
-                        Adress
+                        Address
                     </label>
                   <input
                     type="text"
@@ -192,7 +192,7 @@ export const ProfilePage = () => {
                     name="address"
                     value={editFormData.address || ''}
                     onChange={handleEditProfileChange}
-                    placeholder="Adress"
+                    placeholder="address"
                   />
                 </div>
                 <div className="form-actions">

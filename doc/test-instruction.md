@@ -103,7 +103,7 @@
 |---|----------|--------------------|
 | 1 | Navigera till `/profile` | Profilinformation visas (namn, e-post) |
 | 2 | Klicka "Redigera" | Redigeringsformulär visas |
-| 3 | Ändra e-post/telefon/adress och spara | Framgångsmeddelande visas, ny data syns |
+| 3 | Ändra e-post/telefon/address och spara | Framgångsmeddelande visas, ny data syns |
 | 4 | Avbryt redigering utan att spara | Ursprunglig data visas oförändrad |
 
 ---
