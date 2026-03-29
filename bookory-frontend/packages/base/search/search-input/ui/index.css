@@ -12,6 +12,8 @@
 .search-input {
   flex: 1;
   padding: 0.75rem 1rem;
+  background-color: #ffffff;
+  color: #333;
   border: 2px solid #e2e8f0;
   border-radius: 0.5rem;
   font-size: 1rem;
@@ -49,4 +51,29 @@
   background-color: #EF9445;
   color: #F2E9DF;
   cursor: not-allowed;
+}
+
+.search-button:focus,
+.search-button:focus-visible {
+  outline: none;
+}
+
+.d-none {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .search-input-container {
+    width: 90%;
+    flex-direction: row;
+  }
+
+  .search-icon.d-none {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .search-text {
+    display: none;
+  }
 }

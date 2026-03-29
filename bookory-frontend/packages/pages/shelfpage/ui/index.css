@@ -1,0 +1,20 @@
+
+.shelf-page {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-image__bookshelf {
+    width: 150px;
+    cursor: pointer;
+    margin: 2rem 0;
+    
+}
+
+.shelf-page__title {
+    margin: 0 0 2rem 0;
+    font-size: 40px;
+}

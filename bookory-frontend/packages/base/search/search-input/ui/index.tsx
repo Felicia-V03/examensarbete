@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './index.css';
+import { SlMagnifier } from "react-icons/sl";
 
 /** Props för SearchInput-komponenten */
 interface SearchInputProps {
@@ -39,7 +40,10 @@ export function SearchInput({ onSearch, isLoading = false }: SearchInputProps) {
           className="search-button"
           disabled={isLoading || !query.trim()}
         >
-          {isLoading ? 'Search...' : 'Search'}
+          <i className="search-icon d-none">
+            <SlMagnifier />
+          </i>
+          <span className="search-text">{isLoading ? 'Search...' : 'Search'}</span>
         </button>
       </div>
     </form>
