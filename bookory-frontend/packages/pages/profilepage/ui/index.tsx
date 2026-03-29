@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { getProfile, updateProfile } from '@bookory-frontend/auth-api';
 import type { Profile } from '@bookory-frontend/user';
 import { Navbar } from '@bookory-frontend/navbar';
+import { MdOutlineAlternateEmail } from "react-icons/md";
+import { SlPhone } from "react-icons/sl";
+import { SlHome } from "react-icons/sl";
 
 /**
  * ProfilePage – profilsida för inloggad användare.
@@ -18,6 +21,7 @@ export const ProfilePage = () => {
   const [editFormData, setEditFormData] = useState<Partial<Profile>>({});
   const [isSaving, setIsSaving] = useState(false);
   const [profileMessage, setProfileMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+  const [successBanner, setSuccessBanner] = useState<string | null>(null);
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
   //const userId = currentUser?.userId;
@@ -32,7 +36,7 @@ export const ProfilePage = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login');
       return;
@@ -73,8 +77,10 @@ export const ProfilePage = () => {
       };
       localStorage.setItem('currentUser', JSON.stringify(updatedUser));
 
-      setProfileMessage({ text: 'Profil uppdaterad!', type: 'success' });
       setIsEditingProfile(false);
+      setProfileMessage(null);
+      setSuccessBanner('Profil uppdaterad!');
+      setTimeout(() => setSuccessBanner(null), 3000);
     } catch (error) {
       console.error('Failed to update profile:', error);
       setProfileMessage({ text: 'Kunde inte uppdatera profil. Försök igen.', type: 'error' });
@@ -104,8 +110,13 @@ export const ProfilePage = () => {
         </figure>
       <div className="profile-container">
         <section className="profile-header">
+          {successBanner && (
+            <div className="success-banner">{successBanner}</div>
+          )}
           <div className="profile-avatar">
+            <aside className="profile-avatar__letter">
             {profile.username?.charAt(0).toUpperCase() || 'U'}
+            </aside>
           </div>
           <div className="profile-info">
             <h1>{profile.username}</h1>
@@ -113,18 +124,23 @@ export const ProfilePage = () => {
             {profile.phoneNumber && <p className="profile-phone">{profile.phoneNumber}</p>}
             {profile.address && <p className="profile-address">{profile.address}</p>}
           </div>
-          <button className="edit-profile-btn" onClick={handleStartEditProfile}>
-            Redigera profil
+          
+          <div className="profile-btn">
+            <button className="edit-profile-btn" onClick={handleStartEditProfile}>
+            Edit profile
           </button>
+
           <button className="profile__logout-btn" onClick={handleLogout}>
-            Logga ut
+            Log out
           </button>
+          </div>
+          
         </section>
 
         {isEditingProfile && (
-          <div className="modal-backdrop" onClick={handleCancelEditProfile}>
+          <div className="modal-overlay" onClick={handleCancelEditProfile}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>
-              <h2>Redigera profil</h2>
+              <h2>Update your profile</h2>
               {profileMessage && (
                 <div className={`message message--${profileMessage.type}`}>
                   {profileMessage.text}
@@ -132,7 +148,12 @@ export const ProfilePage = () => {
               )}
               <form className="edit-profile-form">
                 <div className="form-group">
-                  <label htmlFor="edit-email">Email</label>
+                  <label htmlFor="edit-email">
+                    <i className="edit-email_icon">
+                        <MdOutlineAlternateEmail />
+                        </i>
+                        Email
+                    </label>
                   <input
                     type="email"
                     id="edit-email"
@@ -143,7 +164,12 @@ export const ProfilePage = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="edit-phone">Telefonnummer</label>
+                  <label htmlFor="edit-phone">
+                    <i className="edit-telephon_icon">
+                        <SlPhone />
+                        </i>
+                        Telefonnummer
+                    </label>
                   <input
                     type="tel"
                     id="edit-phone"
@@ -154,7 +180,12 @@ export const ProfilePage = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="edit-address">Adress</label>
+                  <label htmlFor="edit-address">
+                    <i className="edit-adress_icon">
+                        <SlHome />
+                        </i>
+                        Adress
+                    </label>
                   <input
                     type="text"
                     id="edit-address"
@@ -171,7 +202,7 @@ export const ProfilePage = () => {
                     onClick={handleSaveProfile}
                     disabled={isSaving}
                   >
-                    {isSaving ? 'Sparar...' : 'Spara'}
+                    {isSaving ? 'Save...' : 'Save'}
                   </button>
                   <button
                     type="button"
@@ -179,7 +210,7 @@ export const ProfilePage = () => {
                     onClick={handleCancelEditProfile}
                     disabled={isSaving}
                   >
-                    Avbryt
+                    Cancel
                   </button>
                 </div>
               </form>

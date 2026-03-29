@@ -26,11 +26,11 @@ function App() {
       <Route element={<ProtectedRoute />}>
         <Route element={<Layout />}>
           <Route path="/home" element={<HomePage />} />
-          <Route path="/search" element={<SearchPage />} />
+          <Route path="/search" element={<SearchPage />} />          
+        </Route>
           <Route path="/shelf" element={<ShelfPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/detail/:bookId" element={<DetailPage />} />
-        </Route>
       </Route>
     </Routes>
   );
