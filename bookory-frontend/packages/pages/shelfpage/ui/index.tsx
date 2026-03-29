@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import './index.css';
 import { apiGetBooks } from '@bookory-frontend/book-api';
 import { Link } from 'react-router-dom';
+import { Navbar } from '@bookory-frontend/navbar';
+import Logo from '../../../../src/assets/logo.png';
 
 // ✅ Typ för din shelf (kombinerad data)
 type ShelfBook = {
@@ -77,9 +79,15 @@ export const ShelfPage = () => {
     );
   }
 
+  
   return (
     <main className="shelf-page">
-      <h1>My Library</h1>
+      <header className="header-logo">
+        <Link to="/home">
+          <img src={Logo} alt="Bookory Image" className="logo-image__bookshelf" />
+        </Link>
+      </header>
+      <h1 className='shelf-page__title'>My Library</h1>
 
       <div className="books-grid">
         {books.map((book) => (
@@ -114,10 +122,12 @@ export const ShelfPage = () => {
                 Visa mer detaljer
               </Link>
             </div>
-
+              
           </div>
         ))}
+        
       </div>
+        <Navbar />
     </main>
   );
 };

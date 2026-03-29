@@ -143,13 +143,8 @@
 @media (max-width: 768px) {
   .books-grid {
     grid-template-columns: 1fr;
+    width: 80%;
   }
   
-  .search-input-container {
-    flex-direction: column;
-  }
   
-  .search-button {
-    width: 100%;
-  }
 }
