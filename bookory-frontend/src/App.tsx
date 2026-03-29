@@ -2,8 +2,11 @@
  * App.tsx – rot-komponenten som definierar applikationens routing.
  * Publika routes: /, /login, /register.
  * Skyddade routes (kräver inloggning): /home, /search, /profile – rendereras inuti Layout.
+ *
+ * Modal-pattern: Om location.state.backgroundLocation finns renderas föregående sida
+ * i bakgrunden och DetailPage visas som modal ovanpå.
  */
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '@bookory-frontend/protected-route';
 import { Layout } from '@bookory-frontend/layout';
 import { StartPage } from '@bookory-frontend/startpage';
@@ -16,23 +19,38 @@ import { DetailPage } from '@bookory-frontend/detailpage';
 import { ShelfPage } from '@bookory-frontend/shelfpage';
 
 function App() {
-  return (
-    <Routes>
-      {/* Publika routes */}
-      <Route path="/" element={<StartPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/detail/:bookId" element={<DetailPage />} />
+  const location = useLocation();
+  // Om state innehåller backgroundLocation visas den sidan i bakgrunden (modal-läge)
+  const backgroundLocation = location.state?.backgroundLocation;
 
-      <Route element={<ProtectedRoute />}>
-        <Route element={<Layout />}>
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/search" element={<SearchPage />} />          
-        </Route>
+  return (
+    <>
+      {/* Huvud-routes: renderas med backgroundLocation när modal är aktiv */}
+      <Routes location={backgroundLocation ?? location}>
+        {/* Publika routes */}
+        <Route path="/" element={<StartPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route element={<Layout />}>
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/search" element={<SearchPage />} />
+          </Route>
           <Route path="/shelf" element={<ShelfPage />} />
-          <Route path="/profile" element={<ProfilePage />} />          
-      </Route>
-    </Routes>
+          <Route path="/profile" element={<ProfilePage />} />
+          {/* Fallback: direktlänk till detail (t.ex. reload) – renderas som egen sida */}
+          <Route path="/detail/:bookId" element={<DetailPage />} />
+        </Route>
+      </Routes>
+
+      {/* Modal-route: renderas ovanpå bakgrundssidan när backgroundLocation finns */}
+      {backgroundLocation && (
+        <Routes>
+          <Route path="/detail/:bookId" element={<DetailPage />} />
+        </Routes>
+      )}
+    </>
   );
 }
 

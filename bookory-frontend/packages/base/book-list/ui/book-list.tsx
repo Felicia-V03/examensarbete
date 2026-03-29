@@ -1,6 +1,7 @@
 // BookList.tsx
 import { BookCard } from '@bookory-frontend/book-card';
 import type { Book } from 'packages/core/interfaces/book';
+import './book-list.css';
 
 /** Props för BookList-komponenten */
 interface Props {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './index.css';
 import { apiGetBooks } from '@bookory-frontend/book-api';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Navbar } from '@bookory-frontend/navbar';
 import Logo from '../../../../src/assets/logo.png';
 
@@ -14,6 +14,7 @@ type ShelfBook = {
 };
 
 export const ShelfPage = () => {
+  const location = useLocation();
   const [books, setBooks] = useState<ShelfBook[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -117,6 +118,7 @@ export const ShelfPage = () => {
               {/* 🔗 Navigation */}
               <Link
                 to={`/detail/${book.bookId}`}
+                state={{ backgroundLocation: location }}
                 className="book-link"
               >
                 Visa mer detaljer
