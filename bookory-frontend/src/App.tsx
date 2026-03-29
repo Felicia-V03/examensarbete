@@ -22,6 +22,7 @@ function App() {
       <Route path="/" element={<StartPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/detail/:bookId" element={<DetailPage />} />
 
       <Route element={<ProtectedRoute />}>
         <Route element={<Layout />}>
@@ -29,10 +30,8 @@ function App() {
           <Route path="/search" element={<SearchPage />} />          
         </Route>
           <Route path="/shelf" element={<ShelfPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          {/* <Route path="/detail/:bookId" element={<DetailPage />} /> */}
+          <Route path="/profile" element={<ProfilePage />} />          
       </Route>
-      <Route path="/detail/:bookId" element={<DetailPage />} />
     </Routes>
   );
 }
