@@ -44,13 +44,13 @@ export function SearchPage() {
     }
   };
 
-  // Kör sökning automatiskt om ?q= finns i URL:en
+  // Kör sökning automatiskt om ?q= finns i URL:en, eller när den ändras
   useEffect(() => {
     const q = searchParams.get('q');
     if (q) {
       searchBooks(q);
     }
-  }, []);
+  }, [searchParams]);
 
   return (
     <div className="search-page">
