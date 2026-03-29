@@ -30,7 +30,7 @@ export function SearchInput({ onSearch, isLoading = false }: SearchInputProps) {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Sök efter böcker..."
+          placeholder="Type the book's name..."
           className="search-input"
           disabled={isLoading}
         />
@@ -39,7 +39,7 @@ export function SearchInput({ onSearch, isLoading = false }: SearchInputProps) {
           className="search-button"
           disabled={isLoading || !query.trim()}
         >
-          {isLoading ? 'Söker...' : 'Sök'}
+          {isLoading ? 'Search...' : 'Search'}
         </button>
       </div>
     </form>

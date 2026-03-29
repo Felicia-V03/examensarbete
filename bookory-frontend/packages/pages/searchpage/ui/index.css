@@ -10,7 +10,16 @@
 }
 
 .search-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: #EF9445;
+  padding: 1rem 0;
+}
+
+.results-header p {
+  font-size: 2rem;
 }
 
 
