@@ -159,7 +159,7 @@ export const DetailPage = () => {
           className="fa-solid fa-arrow-left"
           onClick={() => navigate(-1)}
           ></i>
-          <h1 className='book-detail-head'>Bok detalj</h1>
+          <h1 className='book-detail-head'>Book detail</h1>
         </div>
 
         {/* 📕 Omslag */}
@@ -184,40 +184,44 @@ export const DetailPage = () => {
         </div>
         
         <div className="book-detail-info">
-          {/* 📖 Titel */}
-          <h2 className='book-detail-title'>{work.title}</h2>
+          <div className="book-detail-section">
+            {/* 📖 Titel */}
+            <h2 className='book-detail-title'>{work.title}</h2>
 
-          {/* ✍️ Författare */}
-          {authors.length > 0 && (
-            <p>By  {authors.join(', ')}</p>
-          )}
+            {/* ✍️ Författare */}
+            {authors.length > 0 && (
+              <p className='book-detail-author'><strong>By</strong> {authors.join(', ')}</p>
+            )}
 
-          {/* 📚 Status */}
-          <div className="reading-status">
-            <select
-              id="status"
-              value={readingStatus}
-              onChange={(e) => handleStatusChange(e.target.value)}
-              className="status-dropdown"
-              disabled={isUpdating}
-            >
-              <option value="">Select status</option>
-              <option value="want-to-read">Want to Read</option>
-              <option value="currently-reading">Currently Reading</option>
-              <option value="read">Read</option>
-            </select>
+            {/* 📚 Status */}
+            <div className="reading-status">
+              <select
+                id="status"
+                value={readingStatus}
+                onChange={(e) => handleStatusChange(e.target.value)}
+                className={`status-dropdown ${readingStatus}`}
+                disabled={isUpdating}
+              >
+                <option value="">Select status</option>
+                <option value="want-to-read">Want to Read</option>
+                <option value="currently-reading">Currently Reading</option>
+                <option value="read">Read</option>
+              </select>
+            </div>
           </div>
 
           {/* 🏷️ Genre */}
           {work.subjects && (
             <p>
-              Genre: {work.subjects.slice(0, 5).join(', ')}
+              <strong>Genre</strong> {work.subjects.slice(0, 5).join(', ')}
             </p>
           )}
 
           {/* 📄 Sidor */}
           {firstEdition?.number_of_pages && (
-            <p>Pages: {firstEdition.number_of_pages}</p>
+            <p>
+              <strong>Pages</strong> {firstEdition.number_of_pages}
+            </p>
           )}
 
           {/* 📝 Beskrivning */}

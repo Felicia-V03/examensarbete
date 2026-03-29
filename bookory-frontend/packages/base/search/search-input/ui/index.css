@@ -20,7 +20,7 @@
 }
 
 .search-input:focus {
-  border-color: #3b82f6;
+  border-color: #F2E9DF;
 }
 
 .search-input:disabled {
@@ -30,9 +30,9 @@
 
 .search-button {
   padding: 0.75rem 1.5rem;
-  background-color: #3b82f6;
-  color: white;
-  border: none;
+  background-color: #F2E9DF;
+  color: #EF9445;
+  border: solid 2px #EF9445;
   border-radius: 0.5rem;
   font-size: 1rem;
   font-weight: 500;
@@ -41,10 +41,12 @@
 }
 
 .search-button:hover:not(:disabled) {
-  background-color: #2563eb;
+  background-color: #EF9445;
+  color: #F2E9DF;
 }
 
 .search-button:disabled {
-  background-color: #94a3b8;
+  background-color: #EF9445;
+  color: #F2E9DF;
   cursor: not-allowed;
 }

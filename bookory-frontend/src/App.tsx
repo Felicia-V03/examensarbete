@@ -30,9 +30,9 @@ function App() {
         </Route>
           <Route path="/shelf" element={<ShelfPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/detail/:bookId" element={<DetailPage />} />
+          {/* <Route path="/detail/:bookId" element={<DetailPage />} /> */}
       </Route>
-      {/* <Route path="/detail/:bookId" element={<DetailPage />} /> */}
+      <Route path="/detail/:bookId" element={<DetailPage />} />
     </Routes>
   );
 }
