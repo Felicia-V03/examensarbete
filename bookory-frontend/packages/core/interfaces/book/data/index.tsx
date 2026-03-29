@@ -27,6 +27,7 @@ export interface Work extends Book {
   description?: string | { value: string };
   authors?: { author: { key: string } }[];
   subjects?: string[];
+  covers?: number[];
 }
 
 export interface Edition extends Work {

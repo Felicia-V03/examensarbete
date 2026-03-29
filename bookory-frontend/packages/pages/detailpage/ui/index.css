@@ -1,5 +1,138 @@
 .detail-page {
-    padding: 20px;
-    background-color: #f0f0f0;
-    color: black;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e4dace;
+    color: #EF9445;
+    padding: 2rem 0;
+}
+
+.book-detail {
+    width: min(420px, calc(100vw - 48px));
+    background: #F2E9DF;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+}
+
+.book-nav {
+    display: grid;
+    grid-template-columns: auto 4fr;
+}
+
+.fa-arrow-left {
+    font-size: 2rem;
+}
+
+.book-detail-head {
+    font-size: 2rem;
+}
+
+.book-image-cover {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+
+/* 🔙 Bakgrund */
+.book-cover-bg {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  opacity: 0.5;
+  aspect-ratio: 5/3.5;
+}
+
+/* 🔝 Framsida */
+.book-cover-front {
+  position: relative;
+  width: 40%;
+  border-radius: 12px;
+  z-index: 2;
+  margin: 1rem;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.book-detail-info {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.book-detail-section {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #EF9445;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.book-detail-title {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 0rem;
+    text-align: center;
+}
+
+.book-detail strong {
+    font-weight: 500;
+    color: #EF9445;
+}
+
+.book-detail p {
+    color: #B1692B;
+}
+
+.book-detail-author {
+    text-align: center;
+    margin-top: 0rem;
+}
+
+.status-dropdown {
+    padding: 0.5rem;
+    border-radius: 16px;
+    border: none;
+    background-color: #EF9445;
+    color: #F2E9DF;
+    width: 100%;
+    min-width: 200px;
+}
+
+/* Want to Read */
+.status-dropdown.want-to-read {
+  background-color: #F2E9DF;
+  color: #EF9445;
+  border: 1px solid #EF9445;
+}
+
+/* Currently Reading */
+.status-dropdown.currently-reading {
+  background-color: #F2E9DF;
+  color: #EF9445;
+  border: 1px solid #EF9445;
+}
+
+/* Read */
+.status-dropdown.read {
+  background-color: #F2E9DF;
+  color: #EF9445;
+  border: 1px solid #EF9445;
+}
+
+.status-dropdown:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.book-detail h3 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
 }

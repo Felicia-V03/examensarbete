@@ -19,9 +19,8 @@ venv/
 cerberus/
 bcrypt/
 jwt/
+
 .env
-
-
 
 # Serverless directories
 .serverless

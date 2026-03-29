@@ -30,8 +30,7 @@ function App() {
           <Route path="/search" element={<SearchPage />} />          
         </Route>
           <Route path="/shelf" element={<ShelfPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          
+          <Route path="/profile" element={<ProfilePage />} />          
       </Route>
     </Routes>
   );
