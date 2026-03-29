@@ -1,6 +1,6 @@
 // useFetchBooks.ts
 import { useState, useEffect } from "react";
-import type { Book, OpenLibraryResponse, PostBookForm, UpdateForm } from 'packages/core/interfaces/book';
+import type { Book, OpenLibraryResponse, PostBookForm, UpdateForm } from '@bookory-frontend/book';
 import axios from 'axios';
 
 /** Plockar `count` slumpmässiga böcker från en array */

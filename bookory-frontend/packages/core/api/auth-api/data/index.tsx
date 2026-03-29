@@ -108,7 +108,7 @@ export const getProfile = async (): Promise<Profile> => {
     }
 };
 
-/** Uppdaterar profilfält (email, telefon, adress) för inloggad användare via token */
+/** Uppdaterar profilfält (email, telefon, address) för inloggad användare via token */
 export const updateProfile = async (
     data: UpdateProfileForm
 ): Promise<Profile> => {

@@ -22,6 +22,8 @@ def create_user(user):
           "username": user["username"],
           "email": user["email"],
           "password": user["password"],
+          "address": "null",
+          "phone": "null",
           "createdat": created_at
         }
         
@@ -63,3 +65,49 @@ def get_user(email):
   except Exception as error:
     print("Error getting user:", error)
     return None
+  
+def put_user(user_id, data):
+  try:
+    update_expression = "SET"
+    expression_values = {}
+    expression_names = {}
+
+    if "email" in data:
+      update_expression += " attributes.#email = :email,"
+      expression_values[":email"] = data["email"]
+      expression_names["#email"] = "email"
+
+    if "phone" in data:
+      update_expression += " attributes.#phone = :phone,"
+      expression_values[":phone"] = data["phone"]
+      expression_names["#phone"] = "phone"
+
+    if "address" in data:
+      update_expression += " attributes.#address = :address,"
+      expression_values[":address"] = data["address"]
+      expression_names["#address"] = "address"
+
+    update_expression = update_expression.rstrip(",")
+
+    if update_expression == "SET":
+      return {"message": "Nothing to update"}
+
+    response = table.update_item(
+      Key={
+        "PK": f"USER#{user_id}",
+        "SK": "PROFILE"
+      },
+      UpdateExpression=update_expression,
+      ExpressionAttributeValues=expression_values,
+      ExpressionAttributeNames=expression_names,
+      ReturnValues="UPDATED_NEW"
+    )
+
+    return {
+      "message": "User updated successfully",
+      "updated": response.get("Attributes", {})
+    }
+
+  except Exception as error:
+    print("Error updating user:", error)
+    return False

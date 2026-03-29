@@ -3,12 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { Work, EditionsResponse, Author } from '@bookory-frontend/book';
 import axios from 'axios';
-import {
-  apiGetBookById,
-  apiPostBook,
-  apiPutBook,
-  apiDeleteBook
-} from '@bookory-frontend/book-api';
+import { apiGetBookById, apiPostBook, apiPutBook, apiDeleteBook } from '@bookory-frontend/book-api';
 
 export const DetailPage = () => {
   const { bookId } = useParams();
