@@ -1,4 +1,137 @@
 .profile-page {
-    background-color: #F2E9DF;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     color: black;
 }
+
+.success-banner {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    text-align: center;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.profile-avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    font-size: 5rem;
+    border: solid 5px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border-color: #EF9445;
+}
+
+.profile-btn {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 3rem;
+}
+
+.edit-profile-btn, .profile__logout-btn {
+    background-color: #F2E9DF;
+    border: #EF9445 solid 2px;
+    color: #EF9445;
+    cursor: pointer;
+}
+
+.edit-profile-btn:hover, .profile__logout-btn:hover {
+    background-color: #EF9445;
+    color: #F2E9DF;
+}
+
+
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+	padding: 1rem;
+}
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	background: #F2E9DF;
+	border-radius: 12px;
+	max-width: 600px;
+	width: 100%;
+	max-height: 90vh;
+	overflow-y: auto;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+	animation: modalSlideIn 0.3s ease-out;
+    padding: 1rem;
+}
+
+@keyframes modalSlideIn {
+	from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.edit-profile-form {
+    padding: 1rem;
+}
+
+.form-group {
+    padding-bottom: 0.5rem;
+}
+
+input {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    margin-left: 0.5rem;
+    font-size: 1rem;
+    background-color: #EF9445;
+    color: #F2E9DF;
+}
+
+.edit-email_icon, .edit-telephone_icon, .edit-adress_icon {
+    padding-right: 10px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 3rem;
+    
+}
+
+.btn-save, .btn-cancel {
+    background-color: #F2E9DF;
+    border: #EF9445 solid 2px;
+    color: #EF9445;
+    cursor: pointer;
+}
+
+.btn-save:hover, .btn-cancel:hover {
+    background-color: #EF9445;
+    color: #F2E9DF;
+}
+

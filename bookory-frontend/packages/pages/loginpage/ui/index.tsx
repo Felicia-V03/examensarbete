@@ -39,7 +39,7 @@ export const LoginPage = () => {
             const user = response.user;
 
             if (token) {
-                localStorage.setItem('token', token);
+                localStorage.setItem('authToken', token);
             } else {
                 console.error('No token found in response');
             }
