@@ -1,13 +1,13 @@
-import { useFetchBooks } from '@bookory-frontend/book-api';
+import { useFetchRandomBooks } from '@bookory-frontend/book-api';
 import { BookList } from '@bookory-frontend/book-list';
 import './index.css';
 
 /**
  * HomePage – startsidan för inloggade användare.
- * Hämtar böcker från Open Library och visar dem grupperade per kategori.
+ * Hämtar ~20 slumpmässiga böcker från Open Library och visar dem i ett grid.
  */
 export const HomePage = () => {
-     const { groupedBooks, loading, error } = useFetchBooks("first+time+caller");
+  const { books, loading, error } = useFetchRandomBooks(20);
 
   if (loading) return <p>Laddar böcker...</p>;
   if (error) return <p>{error}</p>;
@@ -15,10 +15,8 @@ export const HomePage = () => {
   return (
     <div>
       <section className="home-page">
-      <h1>Explore the world</h1>
-      {Object.entries(groupedBooks).map(([category, books]) => (
-        <BookList key={category} category={category} books={books} />
-      ))}
+        <h1>Explore the world</h1>
+        <BookList category="" books={books} />
       </section>
     </div>
   );

@@ -5,17 +5,28 @@ import type { Work, EditionsResponse, Author } from '@bookory-frontend/book';
 import axios from 'axios';
 import { apiGetBookById, apiPostBook, apiPutBook, apiDeleteBook } from '@bookory-frontend/book-api';
 
+/**
+ * DetailPage – visar detaljerad information om en bok hämtad från Open Library.
+ * bookId hämtas från URL-parametern och används för att hämta work, editions och författare.
+ * Användaren kan sätta sin lässtatus (want-to-read, currently-reading, read) som sparas i backend.
+ */
 export const DetailPage = () => {
+  // bookId = Open Library work-ID, t.ex. "OL58230W"
   const { bookId } = useParams();
   const navigate = useNavigate();
+
+  // Bokens metadata från Open Library
   const [work, setWork] = useState<Work | null>(null);
   const [editions, setEditions] = useState<EditionsResponse | null>(null);
   const [authors, setAuthors] = useState<string[]>([]);
+
+  // UI-tillstånd
   const [isLoading, setIsLoading] = useState(true);
   const [readingStatus, setReadingStatus] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
+    // Hämtar bokdata från Open Library (work + editions parallellt)
     const fetchData = async () => {
       setIsLoading(true);
 
@@ -30,7 +41,7 @@ export const DetailPage = () => {
         setWork(workRes.data);
         setEditions(editionsRes.data);
 
-        // Hämta författare
+        // Hämta författarnamn via varje authors key-länk
         if (workRes.data.authors) {
           const authorResponses = await Promise.all(
             workRes.data.authors.map(a =>
@@ -50,6 +61,7 @@ export const DetailPage = () => {
       }
     };
 
+    // Hämtar användarens sparade lässtatus för boken från backend
     const fetchStatus = async () => {
       if (!bookId) return;
 
@@ -63,10 +75,13 @@ export const DetailPage = () => {
         }
 
       } catch (error: any) {
-        if (error?.response?.status === 404) {
+        const status = error?.response?.status ?? error?.status;
+        if (status === 404) {
+          // Boken är inte sparad av användaren – ingen status att visa
           setReadingStatus('');
         } else {
-          console.error('Error fetching status:', error);
+          // Annat fel – sätt tom status utan att logga i konsolen
+          setReadingStatus('');
         }
       }
     };
@@ -78,11 +93,18 @@ export const DetailPage = () => {
 
   }, [bookId]);
 
+  // Bygger en URL till omslagsbild via Open Library Covers API
   const getCoverUrl = (covers?: number): string => {
     if (!covers) return '';
     return `https://covers.openlibrary.org/b/id/${covers}-M.jpg`;
   };
 
+  /**
+   * Hanterar byte av lässtatus.
+   * – Om status är tom: tar bort boken från backend (DELETE)
+   * – Om boken redan finns: uppdaterar den (PUT)
+   * – Annars: skapar en ny post (POST)
+   */
   const handleStatusChange = async (status: string) => {
     if (!bookId) return;
 
@@ -95,13 +117,13 @@ export const DetailPage = () => {
           await apiDeleteBook(bookId);
           console.log('Book deleted');
         } catch {
-          // ignore om den inte finns
+          // ignore om den inte finns i backend
         }
         return;
       }
 
       try {
-        // försök uppdatera
+        // Försök uppdatera befintlig post
         await apiPutBook(
           {
             open_library_id: bookId,
@@ -110,7 +132,7 @@ export const DetailPage = () => {
           bookId
         );
       } catch {
-        // annars skapa
+        // Om boken inte finns ännu – skapa en ny
         await apiPostBook({
           open_library_id: bookId,
           status
@@ -128,50 +150,73 @@ export const DetailPage = () => {
 
   if (isLoading) {
     return (
-      <main className="detail-page">
-        <div className="loading-spinner"></div>
-        <p>Laddar bokinformation...</p>
-      </main>
+      <div className="detail-page" onClick={() => window.history.length > 1 ? navigate(-1) : navigate('/search')}>
+        <div className="book-detail" onClick={(e) => e.stopPropagation()}>
+          <div className="loading-spinner"></div>
+          <p>Laddar bokinformation...</p>
+        </div>
+      </div>
     );
   }
 
   if (!work) {
     return (
-      <main className="detail-page">
-        <p>Ingen bok hittades.</p>
-      </main>
+      <div className="detail-page" onClick={() => window.history.length > 1 ? navigate(-1) : navigate('/search')}>
+        <div className="book-detail" onClick={(e) => e.stopPropagation()}>
+          <p>Ingen bok hittades.</p>
+        </div>
+      </div>
     );
   }
 
+  // Väljer den edition som har omslagsbild, annars första edition
   const firstEdition =
-    editions?.entries?.length ? editions.entries[0] : null;
+    editions?.entries?.find(e => e.covers && e.covers.length > 0)
+    ?? (editions?.entries?.length ? editions.entries[0] : null);
+
+  // Prioriterar edition-covers → work-covers → null (visar placeholder)
+  const coverIds =
+    firstEdition?.covers?.length
+      ? firstEdition.covers
+      : work.covers?.length
+        ? work.covers
+        : null;
 
   return (
-    <main className={`detail-page detail-page-${bookId}`}>
-      <div className="book-detail ">
+    // Klick på overlay (bakgrunden) stänger modalen
+    <div className={`detail-page detail-page-${bookId}`} onClick={() => window.history.length > 1 ? navigate(-1) : navigate('/search')}>
+      {/* stopPropagation förhindrar att klick inuti modal stänger den */}
+      <div className="book-detail" onClick={(e) => e.stopPropagation()}>
         <div className="book-nav">
           <i 
           className="fa-solid fa-arrow-left"
-          onClick={() => navigate(-1)}
+          onClick={() => window.history.length > 1 ? navigate(-1) : navigate('/search')}
           ></i>
           <h1 className='book-detail-head'>Book detail</h1>
         </div>
 
-        {/* 📕 Omslag */}
+        {/* Omslag */}
         <div className="book-image-cover">
-          {firstEdition?.covers?.length ? (
+          {coverIds ? (
             <>
               <img
-                src={getCoverUrl(firstEdition.covers[0])}
+                src={getCoverUrl(coverIds[0])}
                 alt=""
                 className="book-cover-bg"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
               />
 
               <img
-                src={getCoverUrl(firstEdition.covers[0])}
+                src={getCoverUrl(coverIds[0])}
                 alt={`Omslag för ${work.title}`}
                 className="book-cover-front"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const placeholder = e.currentTarget.parentElement?.querySelector('.book-cover-placeholder') as HTMLElement;
+                  if (placeholder) placeholder.classList.remove('hidden');
+                }}
               />
+              <div className="book-cover-placeholder hidden">📚</div>
             </>
           ) : (
             <div className="book-cover-placeholder">📚</div>
@@ -180,15 +225,15 @@ export const DetailPage = () => {
         
         <div className="book-detail-info">
           <div className="book-detail-section">
-            {/* 📖 Titel */}
+            {/* Titel */}
             <h2 className='book-detail-title'>{work.title}</h2>
 
-            {/* ✍️ Författare */}
+            {/* Författare */}
             {authors.length > 0 && (
               <p className='book-detail-author'><strong>By</strong> {authors.join(', ')}</p>
             )}
 
-            {/* 📚 Status */}
+            {/* Status */}
             <div className="reading-status">
               <select
                 id="status"
@@ -205,21 +250,21 @@ export const DetailPage = () => {
             </div>
           </div>
 
-          {/* 🏷️ Genre */}
+          {/* Genre */}
           {work.subjects && (
             <p>
               <strong>Genre</strong> {work.subjects.slice(0, 5).join(', ')}
             </p>
           )}
 
-          {/* 📄 Sidor */}
+          {/* Sidor */}
           {firstEdition?.number_of_pages && (
             <p>
               <strong>Pages</strong> {firstEdition.number_of_pages}
             </p>
           )}
 
-          {/* 📝 Beskrivning */}
+          {/* Beskrivning */}
           <h3>Book Description</h3>
           <p>
             {typeof work.description === 'string'
@@ -227,9 +272,8 @@ export const DetailPage = () => {
               : work.description?.value ?? 'No description available.'}
           </p>
         </div>
-        
 
       </div>
-    </main>
+    </div>
   );
 };

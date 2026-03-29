@@ -25,6 +25,50 @@ function groupByCategory(books: Book[]): Record<string, Book[]> {
   return grouped;
 }
 
+/** Slumpmässiga ämnen att välja bland vid slumphämtning */
+const RANDOM_SUBJECTS = [
+  'fiction', 'mystery', 'romance', 'fantasy', 'science+fiction',
+  'thriller', 'history', 'biography', 'horror', 'adventure',
+  'classics', 'poetry', 'philosophy', 'psychology', 'travel'
+];
+
+/**
+ * useFetchRandomBooks – hämtar ca 20 slumpmässiga böcker från Open Library.
+ * Väljer ett slumpmässigt ämne varje gång komponenten mountas.
+ * @param count - Antal böcker att returnera (default 20)
+ */
+export function useFetchRandomBooks(count: number = 20) {
+  const [books, setBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchBooks() {
+      try {
+        // Välj ett slumpmässigt ämne
+        const subject = RANDOM_SUBJECTS[Math.floor(Math.random() * RANDOM_SUBJECTS.length)];
+
+        const res = await fetch(
+          `https://openlibrary.org/search.json?subject=${subject}&limit=100&fields=key,title,author_name,first_publish_year,cover_i,subject`
+        );
+        const data: OpenLibraryResponse = await res.json();
+
+        // Shuffla och ta ut `count` böcker
+        const shuffled = [...data.docs].sort(() => Math.random() - 0.5);
+        setBooks(shuffled.slice(0, count));
+      } catch (err) {
+        setError('Något gick fel!');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchBooks();
+  }, [count]);
+
+  return { books, loading, error };
+}
+
 /**
  * useFetchBooks – custom hook som hämtar böcker från Open Library.
  * Returnerar böcker grupperade per kategori, med 5 slumpmässiga böcker per kategori.
@@ -128,6 +172,11 @@ export const apiPutBook = async (data: UpdateForm, id: string) => {
       data,
       { headers: getAuthHeaders() }
     );
+
+    // Backend returnerar {success: false} om boken inte finns (ConditionalCheckFailed)
+    if (response.data?.success === false) {
+      throw new Error(response.data.message ?? 'Kunde inte uppdatera bok');
+    }
 
     return response.data;
 

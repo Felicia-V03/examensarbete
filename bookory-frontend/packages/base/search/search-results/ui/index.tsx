@@ -1,5 +1,6 @@
 import type { Book } from 'packages/core/interfaces/book';
 import './index.css';
+import { Link, useLocation } from 'react-router-dom';
 
 /** Props för BookResults-komponenten */
 interface BookResultsProps {
@@ -16,6 +17,7 @@ interface BookResultsProps {
  * Hanterar laddnings- och tomma resultat-tillstånd.
  */
 export function BookResults({ books, isLoading, totalResults }: BookResultsProps) {
+  const location = useLocation();
   if (isLoading) {
     return (
       <div className="results-loading">
@@ -91,12 +93,14 @@ export function BookResults({ books, isLoading, totalResults }: BookResultsProps
                 </p>
               )}
               
-              <a 
-                href={`/detail/${getBookId(book.key)}`}
-                className={`book-link-${book.key}`} 
+              {/* Länk till detailsida – skickar med backgroundLocation för modal-pattern */}
+              <Link
+                to={`/detail/${getBookId(book.key)}`}
+                state={{ backgroundLocation: location }}
+                className={`book-link-${book.key}`}
               >
-                Visa mer detaljer
-              </a>
+                More info...
+              </Link>
             </div>
           </div>
         ))}
