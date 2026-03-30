@@ -140,7 +140,7 @@ export const ShelfPage = () => {
                 state={{ backgroundLocation: location }}
                 className="book-link"
               >
-                view details
+                More info...
               </Link>
             </div>
 

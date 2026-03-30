@@ -54,7 +54,7 @@ Felicia:
 
 Söndag - 22-03-2026
 Sunsanee: 
-Felicia: Skapa en getUser funktion.
+Felicia: Skapa en getUser funktion. Koppla med funktion i profilePage.
 
 Måndag - 23-03-2026
 Sunsanee: 
