@@ -5,13 +5,13 @@
 ## Förutsättningar
 - Öppen upp koden i VScode och in i frontend mappen med (cd bookory-frontend)
 - Förberedd koden med install allting med (npm i)
-- Appen körs lokalt (`npm run dev`)
+- Start appen med lokal (`npm run dev`) eller med länken :
 - Backenden är igång och åtkomlig
 - Du har tillgång till en testanvändare (eller skapar en under testet)
 - Öppna upp AWS och logga in med denna loggning uppgifter:
-ID : 747901701476
-Username : IAMtester
-Lösenord : Teast1234
+ID : 747901701476,
+Username : IAMtester,
+Lösenord : Test1234
 
 ---
 
