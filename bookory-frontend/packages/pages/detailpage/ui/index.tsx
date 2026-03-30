@@ -184,13 +184,13 @@ export const DetailPage = () => {
 
   return (
     // Klick på overlay (bakgrunden) stänger modalen
-    <div className={`detail-page detail-page-${bookId}`} onClick={() => window.history.length > 1 ? navigate('/shelf', { state: { refresh: true } }) : navigate('/search')}>
+    <div className={`detail-page detail-page-${bookId}`} onClick={() => window.history.length > 1 ? navigate(-1) : navigate('/search')}>
       {/* stopPropagation förhindrar att klick inuti modal stänger den */}
       <div className="book-detail" onClick={(e) => e.stopPropagation()}>
         <div className="book-nav">
           <i 
           className="fa-solid fa-arrow-left"
-          onClick={() => window.history.length > 1 ? navigate('/shelf', { state: { refresh: true } }) : navigate('/search')}
+          onClick={() => window.history.length > 1 ? navigate(-1) : navigate('/search')}
           ></i>
           <h1 className='book-detail-head'>Book detail</h1>
         </div>
