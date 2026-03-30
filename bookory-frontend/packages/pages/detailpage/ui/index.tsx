@@ -184,7 +184,7 @@ export const DetailPage = () => {
 
   return (
     // Klick på overlay (bakgrunden) stänger modalen
-    <div className={`detail-page detail-page-${bookId}`} onClick={() => window.history.length > 1 ? navigate(-1) : navigate('/search')}>
+    <div className={`detail-page detail-page-${bookId}`} onClick={() => window.history.length > 1 ? navigate('/shelf', { state: { refresh: true } }) : navigate('/search')}>
       {/* stopPropagation förhindrar att klick inuti modal stänger den */}
       <div className="book-detail" onClick={(e) => e.stopPropagation()}>
         <div className="book-nav">
