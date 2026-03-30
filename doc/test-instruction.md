@@ -5,7 +5,7 @@
 ## Förutsättningar
 - Öppen upp koden i VScode och in i frontend mappen med (cd bookory-frontend)
 - Förberedd koden med install allting med (npm i)
-- Start appen med lokal (`npm run dev`) eller med länken :
+- Start appen med lokal (`npm run dev`) eller med s3 länken : http://bookory-exam-bucket.s3-website.eu-north-1.amazonaws.com/
 - Backenden är igång och åtkomlig
 - Du har tillgång till en testanvändare (eller skapar en under testet)
 - Öppna upp AWS och logga in med denna loggning uppgifter:
