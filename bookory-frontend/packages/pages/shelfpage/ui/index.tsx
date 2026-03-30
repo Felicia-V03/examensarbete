@@ -5,7 +5,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { Navbar } from '@bookory-frontend/navbar';
 import Logo from '../../../../src/assets/logo.png';
 
-// ✅ Typ för din shelf (kombinerad data)
 type ShelfBook = {
   bookId: string;
   status: string;
@@ -18,38 +17,60 @@ export const ShelfPage = () => {
   const [books, setBooks] = useState<ShelfBook[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // ✅ helper för covers
   const getCoverUrl = (coverId?: number): string => {
     if (!coverId) return '';
     return `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`;
   };
 
+  // ✅ status formatter
+  const formatStatus = (status: string) => {
+    const map: Record<string, string> = {
+      'want-to-read': 'Want to Read',
+      'currently-reading': 'Currently Reading',
+      'read': 'Read'
+    };
+    return map[status] || status;
+  };
+
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        // 🔹 1. Hämta sparade böcker från din backend
         const savedBooks = await apiGetBooks();
-        console.log(savedBooks);
 
-        // 🔹 2. Hämta info från OpenLibrary
-        const booksWithDetails = await Promise.all(
-          savedBooks.map(async (book: any) => {
+        const results: ShelfBook[] = [];
+
+        // 🔥 loop istället för Promise.all
+        for (const book of savedBooks) {
+          try {
+            // ✅ hämta editions (för covers)
             const res = await fetch(
-              `https://openlibrary.org/works/${book.bookId}.json`
+              `https://openlibrary.org/works/${book.bookId}/editions.json`
             );
 
-            const work = await res.json();
+            const data = await res.json();
+            const firstEdition = data.entries?.[0];
 
-            return {
+            results.push({
               bookId: book.bookId,
               status: book.status,
-              title: work.title,
-              covers: work.covers
-            };
-          })
-        );
+              title: firstEdition?.title || 'Unknown',
+              covers: firstEdition?.covers || []
+            });
 
-        setBooks(booksWithDetails);
+          } catch (err) {
+            console.error('Failed for book:', book.bookId);
+
+            // fallback så appen inte kraschar
+            results.push({
+              bookId: book.bookId,
+              status: book.status,
+              title: 'Unknown',
+              covers: []
+            });
+          }
+        }
+
+        setBooks(results);
 
       } catch (error) {
         console.error('Failed to fetch books:', error);
@@ -61,34 +82,32 @@ export const ShelfPage = () => {
     fetchBooks();
   }, []);
 
-  // ✅ loading state
   if (isLoading) {
     return (
       <main className="shelf-page">
-        <p>Laddar böcker...</p>
+        <p>Loading...</p>
       </main>
     );
   }
 
-  // ✅ empty state
   if (books.length === 0) {
     return (
       <main className="shelf-page">
         <h1>My Library</h1>
-        <p>Inga böcker sparade ännu 📚</p>
+        <p>You don't have any books saved yet 📚</p>
       </main>
     );
   }
 
-  
   return (
     <main className="shelf-page">
       <header className="header-logo">
         <Link to="/home">
-          <img src={Logo} alt="Bookory Image" className="logo-image__bookshelf" />
+          <img src={Logo} alt="Bookory" className="logo-image__bookshelf" />
         </Link>
       </header>
-      <h1 className='shelf-page__title'>My Library</h1>
+
+      <h1 className="shelf-page__title">My Library</h1>
 
       <div className="books-grid">
         {books.map((book) => (
@@ -112,7 +131,7 @@ export const ShelfPage = () => {
 
               {/* 🔥 Status */}
               <p className={`book-status status-${book.status}`}>
-                {book.status}
+                {formatStatus(book.status)}
               </p>
 
               {/* 🔗 Navigation */}
@@ -121,15 +140,15 @@ export const ShelfPage = () => {
                 state={{ backgroundLocation: location }}
                 className="book-link"
               >
-                Visa mer detaljer
+                view details
               </Link>
             </div>
-              
+
           </div>
         ))}
-        
       </div>
-        <Navbar />
+
+      <Navbar />
     </main>
   );
 };
