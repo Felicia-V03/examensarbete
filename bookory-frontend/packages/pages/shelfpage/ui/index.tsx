@@ -95,6 +95,7 @@ export const ShelfPage = () => {
       <main className="shelf-page">
         <h1>My Library</h1>
         <p>You don't have any books saved yet 📚</p>
+        <Navbar />
       </main>
     );
   }
