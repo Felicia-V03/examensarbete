@@ -3,9 +3,15 @@
 ## HOW IT WORKS
 
 ## Förutsättningar
-- Appen körs lokalt (`npm run dev`) eller via deployad URL
+- Öppen upp koden med VScode och in i frontend mappen med (cd bookory-frontend)
+- Förberedd koden med install allting med (npm i)
+- Appen körs lokalt (`npm run dev`)
 - Backenden är igång och åtkomlig
 - Du har tillgång till en testanvändare (eller skapar en under testet)
+- Öppna upp AWS och logga in med denna loggning uppgifter:
+ID : 747901701476
+Username : IAMtester
+Lösenord : Teast1234
 
 ---
 
@@ -56,7 +62,7 @@
 
 | # | Teststeg | Förväntat resultat |
 |---|----------|--------------------|
-| 1 | Logga in och navigera till `/home` | Böcker laddas och visas grupperade per kategori |
+| 1 | Logga in och navigera till `/home` | Böcker laddas och visas en viss random av böckerna |
 | 2 | Vänta på laddning | En laddningsindikator visas under hämtning |
 | 3 | Klicka på en bok | Navigeras till `/detail/:bookId` |
 | 4 | Kontrollera navbar | Home, Explore, Library, Profile visas – Home är aktiv |
@@ -71,7 +77,7 @@
 | 2 | Skriv en söksträng och skicka formuläret | Böcker från Open Library visas |
 | 3 | Navigera till `/search?q=harry+potter` | Sökning körs automatiskt med den frasen |
 | 4 | Söka efter något som inte finns | "Inga resultat" eller tom lista visas |
-| 5 | Klicka på ett sökresultat | Navigeras till `/detail/:bookId` |
+| 5 | Klicka "More details" på ett sökresultat | Navigeras till `/detail/:bookId` |
 
 ---
 
@@ -101,8 +107,8 @@
 
 | # | Teststeg | Förväntat resultat |
 |---|----------|--------------------|
-| 1 | Navigera till `/profile` | Profilinformation visas (namn, e-post) |
-| 2 | Klicka "Redigera" | Redigeringsformulär visas |
+| 1 | Navigera till `/profile` | Profilinformation visas (namn, e-post, trtelefonnummer och addressen) |
+| 2 | Klicka "Edit Profile" | Redigeringsformulär visas |
 | 3 | Ändra e-post/telefon/address och spara | Framgångsmeddelande visas, ny data syns |
 | 4 | Avbryt redigering utan att spara | Ursprunglig data visas oförändrad |
 
