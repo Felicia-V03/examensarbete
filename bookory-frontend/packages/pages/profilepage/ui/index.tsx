@@ -119,20 +119,20 @@ export const ProfilePage = () => {
             </aside>
           </div>
           <div className="profile-info">
-            <h1>{profile.username}</h1>
-            <p className="profile-email">{profile.email}</p>
-            {profile.phone && <p className="profile-phone">{profile.phone}</p>}
-            {profile.address && <p className="profile-address">{profile.address}</p>}
+            <h1 className='profile-name'>{profile.username}</h1>
+            <p className="profile-email">Email: {profile.email}</p>
+            {profile.phone && <p className="profile-phone">Phone number: {profile.phone}</p>}
+            {profile.address && <p className="profile-address">Address: {profile.address}</p>}
           </div>
           
           <div className="profile-btn">
             <button className="edit-profile-btn" onClick={handleStartEditProfile}>
-            Edit profile
-          </button>
+              Edit profile
+            </button>
 
-          <button className="profile__logout-btn" onClick={handleLogout}>
-            Log out
-          </button>
+            <button className="profile__logout-btn" onClick={handleLogout}>
+              Log out
+            </button>
           </div>
           
         </section>
@@ -168,7 +168,7 @@ export const ProfilePage = () => {
                     <i className="edit-telephon_icon">
                         <SlPhone />
                         </i>
-                        Telefonnummer
+                        Phone number
                     </label>
                   <input
                     type="tel"
@@ -176,7 +176,7 @@ export const ProfilePage = () => {
                     name="phone"
                     value={editFormData.phone || ''}
                     onChange={handleEditProfileChange}
-                    placeholder="Telefonnummer"
+                    placeholder="Phone number"
                   />
                 </div>
                 <div className="form-group">
