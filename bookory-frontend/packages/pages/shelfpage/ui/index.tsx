@@ -34,6 +34,8 @@ export const ShelfPage = () => {
 
   useEffect(() => {
     const fetchBooks = async () => {
+      setIsLoading(true);
+
       try {
         const savedBooks = await apiGetBooks();
 
@@ -80,19 +82,31 @@ export const ShelfPage = () => {
     };
 
     fetchBooks();
-  }, []);
+  }, [location.state]);
 
   if (isLoading) {
     return (
       <main className="shelf-page">
+        <header className="header-logo">
+        <Link to="/home">
+          <img src={Logo} alt="Bookory" className="logo-image__bookshelf" />
+        </Link>
+      </header>
+        <h1>My Library</h1>
         <p>Loading...</p>
+        <Navbar />
       </main>
     );
   }
 
   if (books.length === 0) {
     return (
-      <main className="shelf-page">
+      <main className="shelf-page">      
+      <header className="header-logo">
+        <Link to="/home">
+          <img src={Logo} alt="Bookory" className="logo-image__bookshelf" />
+        </Link>
+      </header>
         <h1>My Library</h1>
         <p>You don't have any books saved yet 📚</p>
         <Navbar />

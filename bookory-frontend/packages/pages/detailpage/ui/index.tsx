@@ -190,7 +190,7 @@ export const DetailPage = () => {
         <div className="book-nav">
           <i 
           className="fa-solid fa-arrow-left"
-          onClick={() => window.history.length > 1 ? navigate(-1) : navigate('/search')}
+          onClick={() => window.history.length > 1 ? navigate('/shelf', { state: { refresh: true } }) : navigate('/search')}
           ></i>
           <h1 className='book-detail-head'>Book detail</h1>
         </div>
