@@ -61,24 +61,24 @@ export const ProfilePage = () => {
   const handleSaveProfile = async () => {
     setIsSaving(true);
     try {
-      const updated = await updateProfile({
+      await updateProfile({
         email: editFormData.email,
         phone: editFormData.phone,
         address: editFormData.address,
+
       });
 
-      setProfileData(updated);
+      const freshProfile = await getProfile();
+      setProfileData(freshProfile);
 
       const updatedUser = {
         ...currentUser,
-        email: updated.email,
-        phone: updated.phone,
-        address: updated.address,
+        email: freshProfile.email,
+        phone: freshProfile.phone,
+        address: freshProfile.address,
       };
       localStorage.setItem('currentUser', JSON.stringify(updatedUser));
 
-      setIsEditingProfile(false);
-      setProfileMessage(null);
       setSuccessBanner('Profil uppdaterad!');
       setTimeout(() => setSuccessBanner(null), 3000);
     } catch (error) {
@@ -86,6 +86,8 @@ export const ProfilePage = () => {
       setProfileMessage({ text: 'Kunde inte uppdatera profil. Försök igen.', type: 'error' });
     } finally {
       setIsSaving(false);
+      setIsEditingProfile(false);
+      setProfileData(freshProfile => ({ ...freshProfile, ...editFormData } as Profile));
     }
   };
 
@@ -222,4 +224,3 @@ export const ProfilePage = () => {
     </div>
   );
 };
-
