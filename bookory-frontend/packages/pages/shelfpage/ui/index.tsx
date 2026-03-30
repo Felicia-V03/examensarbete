@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Navbar } from '@bookory-frontend/navbar';
 import Logo from '../../../../src/assets/logo.png';
 
+/** Typ for en bok i hyllan - kombination av backenddata och Open Library-data */
 type ShelfBook = {
   bookId: string;
   status: string;
@@ -12,17 +13,23 @@ type ShelfBook = {
   covers?: number[];
 };
 
+/**
+ * ShelfPage - visar anvandarens sparade bocker (My Library).
+ * Hamtar bokstatus fran backend och kompletterande info (titel, omslag) fran Open Library.
+ */
 export const ShelfPage = () => {
+  // Anvands for att skicka med backgroundLocation nar modal oppnas
   const location = useLocation();
   const [books, setBooks] = useState<ShelfBook[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  /** Bygger en URL till omslagsbild via Open Library Covers API */
   const getCoverUrl = (coverId?: number): string => {
     if (!coverId) return '';
     return `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`;
   };
 
-  // ✅ status formatter
+  /** Oversatter status-ID till lasbar text */
   const formatStatus = (status: string) => {
     const map: Record<string, string> = {
       'want-to-read': 'Want to Read',
@@ -37,14 +44,15 @@ export const ShelfPage = () => {
       setIsLoading(true);
 
       try {
+        // Hamtar alla sparade bocker for inloggad anvandare fran backend
         const savedBooks = await apiGetBooks();
 
         const results: ShelfBook[] = [];
 
-        // 🔥 loop istället för Promise.all
+        // Loopar sekventiellt for att undvika att for manga anrop skickas parallellt
         for (const book of savedBooks) {
           try {
-            // ✅ hämta editions (för covers)
+            // Hamtar editions fran Open Library for att fa titel och omslagsbild
             const res = await fetch(
               `https://openlibrary.org/works/${book.bookId}/editions.json`
             );
@@ -62,7 +70,7 @@ export const ShelfPage = () => {
           } catch (err) {
             console.error('Failed for book:', book.bookId);
 
-            // fallback så appen inte kraschar
+            // Fallback: lagg till boken anda utan titel/omslag sa appen inte kraschar
             results.push({
               bookId: book.bookId,
               status: book.status,
@@ -82,8 +90,9 @@ export const ShelfPage = () => {
     };
 
     fetchBooks();
-  }, [location.state]);
+  }, [location.state]); // Kors om nar anvandaren stanger en modal (status kan ha andrats)
 
+  // Laddningstillstand - visas medan bocker hamtas
   if (isLoading) {
     return (
       <main className="shelf-page">
@@ -99,6 +108,7 @@ export const ShelfPage = () => {
     );
   }
 
+  // Tomt tillstand - inga bocker sparade an
   if (books.length === 0) {
     return (
       <main className="shelf-page">      
@@ -117,6 +127,7 @@ export const ShelfPage = () => {
   return (
     <main className="shelf-page">
       <header className="header-logo">
+        {/* Logo navigerar tillbaka till hemsidan */}
         <Link to="/home">
           <img src={Logo} alt="Bookory" className="logo-image__bookshelf" />
         </Link>
@@ -128,7 +139,7 @@ export const ShelfPage = () => {
         {books.map((book) => (
           <div key={book.bookId} className="book-card">
 
-            {/* 📕 Cover */}
+            {/* Omslagsbild - visas om cover-ID finns, annars emoji-placeholder */}
             <div className="book-cover">
               {book.covers?.[0] ? (
                 <img
@@ -140,16 +151,16 @@ export const ShelfPage = () => {
               )}
             </div>
 
-            {/* 📖 Info */}
+            {/* Bokinformation: titel, lasstatus och lank till detaljsida */}
             <div className="book-info">
               <h3 className="book-title">{book.title}</h3>
 
-              {/* 🔥 Status */}
+              {/* Lasstatus formaterad till lasbar text */}
               <p className={`book-status status-${book.status}`}>
                 {formatStatus(book.status)}
               </p>
 
-              {/* 🔗 Navigation */}
+              {/* Lank till DetailPage som modal - skickar med backgroundLocation */}
               <Link
                 to={`/detail/${book.bookId}`}
                 state={{ backgroundLocation: location }}
