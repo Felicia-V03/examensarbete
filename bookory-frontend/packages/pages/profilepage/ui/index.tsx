@@ -87,6 +87,7 @@ export const ProfilePage = () => {
     } finally {
       setIsSaving(false);
       setIsEditingProfile(false);
+      setProfileData(freshProfile => ({ ...freshProfile, ...editFormData } as Profile));
     }
   };
 
@@ -223,4 +224,3 @@ export const ProfilePage = () => {
     </div>
   );
 };
-
