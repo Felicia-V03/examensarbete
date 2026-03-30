@@ -9,12 +9,12 @@ import './index.css';
 export const HomePage = () => {
   const { books, loading, error } = useFetchRandomBooks(20);
 
-  if (loading) return <p>Laddar böcker...</p>;
+  if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <section className="home-page">
+    <div className="home-page">
+      <section className="home-page-container">
         <h1>Explore the world</h1>
         <BookList category="" books={books} />
       </section>

@@ -11,13 +11,13 @@ export function Layout() {
 	const navigate = useNavigate();
 
 	return (
-		<>
+		<div className='page'>
 			<Header />
 			<SearchInput onSearch={(q) => navigate(`/search?q=${encodeURIComponent(q)}`)} />
 			<main>
 				<Outlet />
 			</main>
 			<Navbar />
-		</>
+		</div>
 	);
 }

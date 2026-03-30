@@ -1,7 +1,7 @@
 .search-page {
   min-height: 100vh;
   background-color: #F2E9DF;
-  padding: 2rem 1rem;
+  padding: 0 1rem 4rem 1rem;
 }
 
 .search-container {
@@ -16,6 +16,7 @@
   align-items: center;
   color: #EF9445;
   padding: 1rem 0;
+  margin: 0;
 }
 
 .results-header p {

@@ -1,5 +1,5 @@
 .home-page {
-    width: 100%;
+    width: 100vw;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -10,9 +10,18 @@
     box-sizing: border-box;
 }
 
+.home-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 2rem;
+}
+
 .home-page h1 {
     text-align: center;
     margin-bottom: 2rem;
+    margin: 0;
 }
 
 @media (max-width: 600px) {
