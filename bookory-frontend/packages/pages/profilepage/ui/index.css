@@ -34,12 +34,39 @@
     aspect-ratio: 1;
     border-radius: 50%;
     border-color: #EF9445;
+    color: #8E5625;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0rem;
+    padding: 1rem;
+    border-bottom: 1px solid #EF9445;
+}
+
+.profile-name {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #EF9445;
+}
+
+.profile-email, .profile-phone, .profile-address {
+    font-size: 1rem;
+    color: #8E5625;
+    margin: 0;
 }
 
 .profile-btn {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-evenly;
-    margin-top: 3rem;
+    gap: 1rem;
+    margin-top: 2rem;
 }
 
 .edit-profile-btn, .profile__logout-btn {
