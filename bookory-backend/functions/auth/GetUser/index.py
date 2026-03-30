@@ -25,6 +25,8 @@ def handler(event, context):
       "user": {
         "username": attributes.get("username"),
         "email": attributes.get("email"),
+        "phone": attributes.get("phone"),
+        "address": attributes.get("address"),
         "createdat": attributes.get("createdat")
       }
     })

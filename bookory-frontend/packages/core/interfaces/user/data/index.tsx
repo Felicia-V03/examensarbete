@@ -3,9 +3,9 @@ export interface User {
     userId: string;
     email: string;
     name: string;
-    usernae: string;
+    username: string;
     role: string;
-    phoneNumber?: string;
+    phone?: string;
 }
 
 export interface Profile {
@@ -13,6 +13,6 @@ export interface Profile {
     name: string;
     email: string;
     username: string;
-    phoneNumber?: string;
+    phone?: string;
     address?: string;
 }

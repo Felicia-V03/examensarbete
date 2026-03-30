@@ -31,7 +31,7 @@ export const ProfilePage = () => {
     name: currentUser?.name || 'Användare',
     email: currentUser?.email || '',
     username: currentUser?.username || '',
-    phoneNumber: currentUser?.phoneNumber,
+    phone: currentUser?.phone,
     address: currentUser?.address,
   };
 
@@ -63,7 +63,7 @@ export const ProfilePage = () => {
     try {
       const updated = await updateProfile({
         email: editFormData.email,
-        phoneNumber: editFormData.phoneNumber,
+        phone: editFormData.phone,
         address: editFormData.address,
       });
 
@@ -72,7 +72,7 @@ export const ProfilePage = () => {
       const updatedUser = {
         ...currentUser,
         email: updated.email,
-        phoneNumber: updated.phoneNumber,
+        phone: updated.phone,
         address: updated.address,
       };
       localStorage.setItem('currentUser', JSON.stringify(updatedUser));
@@ -121,7 +121,7 @@ export const ProfilePage = () => {
           <div className="profile-info">
             <h1>{profile.username}</h1>
             <p className="profile-email">{profile.email}</p>
-            {profile.phoneNumber && <p className="profile-phone">{profile.phoneNumber}</p>}
+            {profile.phone && <p className="profile-phone">{profile.phone}</p>}
             {profile.address && <p className="profile-address">{profile.address}</p>}
           </div>
           
@@ -173,8 +173,8 @@ export const ProfilePage = () => {
                   <input
                     type="tel"
                     id="edit-phone"
-                    name="phoneNumber"
-                    value={editFormData.phoneNumber || ''}
+                    name="phone"
+                    value={editFormData.phone || ''}
                     onChange={handleEditProfileChange}
                     placeholder="Telefonnummer"
                   />
