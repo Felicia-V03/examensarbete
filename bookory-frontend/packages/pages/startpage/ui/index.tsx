@@ -12,13 +12,13 @@ export const StartPage = () => {
 
     return (
         <section className="page-body landing-page">
-        <figure className="logo">
-            <img src={Logo} alt="Bookory Image" className="logo-image" />
-        </figure>
-        <aside className="btn_container">
-        <AuthButton type="login" user={null} onClick={() => navigate('/login')} label="Log in" />
-        <AuthButton type="register" user={null} onClick={() => navigate('/register')} label="Register" /> 
-        </aside>      
+            <figure className="logo">
+                <img src={Logo} alt="Bookory Image" className="logo-image" />
+            </figure>
+            <aside className="btn_container">
+                <AuthButton type="login" user={null} onClick={() => navigate('/login')} label="Log in" />
+                <AuthButton type="register" user={null} onClick={() => navigate('/register')} label="Register" /> 
+            </aside>      
         </section>
     )
 }
