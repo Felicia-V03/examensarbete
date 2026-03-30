@@ -17,7 +17,7 @@ import { useAuthStore } from '@bookory-frontend/auth-store';
 export const LoginPage = () => {
     const navigate = useNavigate();
     const login = useAuthStore((state) => state.login);
-
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -29,6 +29,8 @@ export const LoginPage = () => {
         e.preventDefault();
 
         if (!canSubmit) return;
+
+        setErrorMessage(null);
 
         try {
             const response = await apiLogin({ email, password });
@@ -51,6 +53,7 @@ export const LoginPage = () => {
             navigate('/home');
         } catch (error) {
             console.error('Login failed:', error);
+            setErrorMessage('Login failed. Please check your credentials and try again.');
         }
     };
 
@@ -74,20 +77,13 @@ export const LoginPage = () => {
                         showToggle
                     />
 
+                    {errorMessage && (
+                        <p className="auth-error">{errorMessage}</p>
+                    )}
                     <AuthActionButton 
                         label="Log in" 
                         disabled={!canSubmit} 
                     />
-
-                    {/* <button
-                        className="auth-link"
-                        type="button"
-                        onClick={() => {
-                            navigate('/register');
-                        }}
-                    >
-                        Forget password?
-                    </button> */}
                 </form>
             </AuthCard>
         </main>

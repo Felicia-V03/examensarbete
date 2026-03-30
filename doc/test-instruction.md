@@ -3,7 +3,7 @@
 ## HOW IT WORKS
 
 ## Förutsättningar
-- Öppen upp koden med VScode och in i frontend mappen med (cd bookory-frontend)
+- Öppen upp koden i VScode och in i frontend mappen med (cd bookory-frontend)
 - Förberedd koden med install allting med (npm i)
 - Appen körs lokalt (`npm run dev`)
 - Backenden är igång och åtkomlig
