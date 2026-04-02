@@ -1,0 +1,5 @@
+{
+    "name": "@bookory-frontend/useauth-store",
+    "main": "index.ts",
+    "types": "./data/index.tsx"
+}

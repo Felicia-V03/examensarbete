@@ -1,0 +1,5 @@
+{
+    "name": "@bookory-frontend/base-button",
+    "main": "index.ts",
+    "types": "./ui/index.tsx"
+}

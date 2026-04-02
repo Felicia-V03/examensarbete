@@ -1,0 +1,43 @@
+.search-page {
+  min-height: 100vh;
+  background-color: #F2E9DF;
+  padding: 0 1rem 4rem 1rem;
+}
+
+.search-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.search-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #EF9445;
+  padding: 1rem 0;
+  margin: 0;
+}
+
+.results-header p {
+  font-size: 2rem;
+}
+
+
+@media (max-width: 768px) {
+  .search-page {
+    padding: 1rem 0.5rem;
+  }
+  
+  .search-header {
+    margin-bottom: 2rem;
+  }
+  
+  .search-header h1 {
+    font-size: 2rem;
+  }
+  
+  .search-header p {
+    font-size: 1rem;
+  }
+}

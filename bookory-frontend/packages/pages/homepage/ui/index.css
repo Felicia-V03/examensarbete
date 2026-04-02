@@ -1,0 +1,31 @@
+.home-page {
+    width: 100vw;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: #F2E9DF;
+    padding: 1rem 1.5rem 6rem 1.5rem;
+    box-sizing: border-box;
+}
+
+.home-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.home-page h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .home-page {
+        padding: 1rem 1rem 6rem 1rem;
+    }
+}

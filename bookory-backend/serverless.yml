@@ -1,0 +1,97 @@
+
+service: bookory-backend
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: eu-north-1
+  httpApi:
+    cors: true
+  iam:
+    role: ${env:IAM_ROLE_ARN}
+
+custom:
+  pythonRequirements:
+    dockerizePip: false
+
+functions:
+  ##Auth
+  GetUser:
+    handler: functions/auth/GetUser/index.handler
+    events:
+      - httpApi:
+          path: /api/auth/user
+          method: get
+  Login:
+    handler: functions/auth/LoginUser/index.handler
+    events:
+      - httpApi:
+          path: /api/auth/login
+          method: post
+  Register:
+    handler: functions/auth/RegisterUser/index.handler
+    events:
+      - httpApi:
+          path: /api/auth/register
+          method: post
+  PutUser:
+    handler: functions/auth/PutUser/index.handler
+    events:
+      - httpApi:
+          path: /api/auth/user
+          method: put
+  ##Books
+  PostBook:
+    handler: functions/books/PostBook/index.handler
+    events:
+      - httpApi:
+          path: /api/book
+          method: post
+  GetBooks:
+    handler: functions/books/GetBooks/index.handler
+    events:
+      - httpApi:
+          path: /api/books
+          method: get
+  GetBookById:
+    handler: functions/books/GetBookById/index.handler
+    events:
+      - httpApi:
+          path: /api/book/{id}
+          method: get
+  GetBookByStatus:
+    handler: functions/books/GetBookByStatus/index.handler
+    events:
+      - httpApi:
+          path: /api/book/status/{status}
+          method: get
+  PutBookById:
+    handler: functions/books/PutBookById/index.handler
+    events:
+      - httpApi:
+          path: /api/book/{id}
+          method: put
+  DeleteBookById:
+    handler: functions/books/DeleteBookById/index.handler
+    events:
+      - httpApi:
+          path: /api/book/{id}
+          method: delete
+
+resources:
+  Resources:
+    BooksTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: bookory-table
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+          - AttributeName: SK
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE

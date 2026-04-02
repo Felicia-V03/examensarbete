@@ -1,0 +1,23 @@
+/* === Böcker-grid: 4 kolumner på desktop === */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* === Tablet: 2 kolumner === */
+@media (max-width: 1024px) {
+    .book-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* === Mobil: flex, en kolumn === */
+@media (max-width: 600px) {
+    .book-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
